@@ -1,0 +1,27 @@
+header.wrapper {
+  @apply flex justify-between my-8 items-center;
+
+  & h1 {
+    @apply cursor-pointer m-0;
+
+    font-family: 'Noto Serif SC', serif;
+
+    & small {
+      @apply text-base ml-3;
+
+      font-family: 'Roboto Slab', serif;
+
+      &::before {
+        content: '-- ';
+      }
+    }
+  }
+
+  & .links {
+    @apply relative;
+
+    & > a {
+      @apply ml-4;
+    }
+  }
+}
