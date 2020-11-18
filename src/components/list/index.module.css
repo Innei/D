@@ -1,0 +1,11 @@
+.root {
+  & li {
+    line-height: 1.5;
+  }
+  & .title {
+    @apply text-lg;
+  }
+  & .created {
+    @apply ml-4 text-sm text-opacity-85;
+  }
+}

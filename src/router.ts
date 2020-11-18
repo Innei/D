@@ -1,5 +1,8 @@
 import { defineAsyncComponent } from 'vue'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import QProgress from 'qier-progress'
+
+const qprogress = new QProgress()
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,8 +27,13 @@ export const router = createRouter({
 })
 
 router.beforeEach((before, to, next) => {
-  // todo
+  qprogress.start()
   next()
 })
-
+router.afterEach(() => {
+  qprogress.finish()
+})
+router.onError(() => {
+  qprogress.finish()
+})
 export default router

@@ -2676,6 +2676,11 @@ clone@^1.0.2:
   resolved "https://registry.npm.taobao.org/clone/download/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+clsx@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
+  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
+
 coa@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npm.taobao.org/coa/download/coa-2.0.2.tgz#43f6c21151b4ef2bf57187db0d73de229e3e7ec3"
@@ -7496,6 +7501,11 @@ q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.npm.taobao.org/q/download/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+
+qier-progress@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/qier-progress/-/qier-progress-1.0.4.tgz#ff32504d9409bcce20898014b0fdb423874fbc10"
+  integrity sha512-gCxgoM2wxW7GCo/iEpOlaunVo2cf+/AJfG6wtYIbYz18GXtUhFjgZjX2s+otWh/P8ppVgGULASkWtXfZQEd2FQ==
 
 qs@6.7.0:
   version "6.7.0"

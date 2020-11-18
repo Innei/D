@@ -9,3 +9,9 @@ body {
 body {
   min-height: 100%;
 }
+a {
+  @apply transition-opacity duration-75;
+}
+a:hover {
+  @apply text-opacity-85;
+}

@@ -8,10 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "clsx": "1.1.1",
     "core-js": "^3.6.5",
     "graphql": "15.4.0",
     "graphql-request": "3.3.0",
     "normalize.css": "8.0.1",
+    "qier-progress": "1.0.4",
     "vue": "^3.0.0",
     "vue-router": "4.0.0-rc.3",
     "vuex": "4.0.0-rc.1"
