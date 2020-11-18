@@ -4,6 +4,9 @@ import BaseLayout from '@/layouts/base.vue'
 import { useRoute } from 'vue-router'
 import { getNoteContent } from '@/api'
 import { NoteContentPayload } from '@/api/types'
+// @ts-ignore
+import VueMarkdownIt from 'vue3-markdown-it'
+
 export const NoteContentView = defineComponent({
   setup() {
     const route = useRoute()
@@ -38,8 +41,7 @@ export const NoteContentView = defineComponent({
             <div class={styles['time']}>{formatTime.value}</div>
             <article>
               <h1 style={{ display: 'none' }}>{data.note.title}</h1>
-
-              <div>{data.note.text}</div>
+              <VueMarkdownIt source={data.note.text} html></VueMarkdownIt>
             </article>
           </div>
         )}

@@ -19,3 +19,34 @@ a {
 a:hover {
   @apply text-opacity-85;
 }
+
+article {
+  @apply break-all;
+  line-height: 1.5;
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    @apply text-2xl font-bold my-4;
+  }
+
+  & p {
+    @apply my-4;
+  }
+
+  & blockquote {
+    font-family: Han Kaiti GB, Kaiti SC, cursive, serif;
+    margin: 0px;
+    border-left: 0.2rem solid rgb(119, 119, 119);
+    color: rgb(119, 119, 119);
+    padding-left: 1rem;
+  }
+
+  & img {
+    @apply max-w-full object-cover;
+  }
+
+  & li {
+    @apply list-disc my-2;
+  }
+}

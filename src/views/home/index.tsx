@@ -24,10 +24,10 @@ export const HomeView = defineComponent({
 
     const currentPage = ref(parseInt(route.query.page as any) || 1)
     onMounted(async () => {
-      await fetchData(currentPage.value, 10)
+      await fetchData(currentPage.value, 20)
     })
 
-    const fetchData = async (page = 1, size = 10) => {
+    const fetchData = async (page = 1, size = 20) => {
       const payload = await getNoteList(page, size)
       data.notes = payload.data
 
@@ -49,6 +49,9 @@ export const HomeView = defineComponent({
                 !data.pager.hasPrevPage && styles['disable'],
               )}
               onClick={() => {
+                if (!data.pager.hasPrevPage) {
+                  return
+                }
                 const page = currentPage.value - 1
                 fetchData(page)
                 router.push({
@@ -67,6 +70,9 @@ export const HomeView = defineComponent({
                 !data.pager.hasNextPage && styles['disable'],
               )}
               onClick={() => {
+                if (!data.pager.hasNextPage) {
+                  return
+                }
                 const page = currentPage.value + 1
                 fetchData(page)
                 router.push({

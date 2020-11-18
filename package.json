@@ -16,6 +16,7 @@
     "qier-progress": "1.0.4",
     "vue": "^3.0.0",
     "vue-router": "4.0.0-rc.3",
+    "vue3-markdown-it": "1.0.5",
     "vuex": "4.0.0-rc.1"
   },
   "devDependencies": {
