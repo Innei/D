@@ -5,16 +5,18 @@
     <main>
       <slot />
     </main>
-    <footer></footer>
+    <Footer></Footer>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Header } from '../components/header'
+import { Footer } from '../components/footer'
 export default defineComponent({
   components: {
     Header: Header,
+    Footer,
   },
 })
 </script>

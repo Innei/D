@@ -43,6 +43,17 @@ export const NoteContentView = defineComponent({
               <h1 style={{ display: 'none' }}>{data.note.title}</h1>
               <VueMarkdownIt source={data.note.text} html></VueMarkdownIt>
             </article>
+
+            <div class={styles['notice']}>
+              Visit Full version:{' '}
+              <a
+                href={`//innei.ren/notes/${data.note.nid}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://innei.ren/notes/{data.note.nid}
+              </a>
+            </div>
           </div>
         )}
       </BaseLayout>
