@@ -7,10 +7,12 @@ export const Header = defineComponent({
   setup() {
     return () => (
       <header class={styles['wrapper']}>
-        <h1>
-          {configs.title}
-          <small>{configs.subtitle}</small>
-        </h1>
+        <RouterLink to={'/'}>
+          <h1>
+            {configs.title}
+            <small>{configs.subtitle}</small>
+          </h1>
+        </RouterLink>
 
         <div class={styles['links']}>
           <RouterLink to={'/about'}>About</RouterLink>

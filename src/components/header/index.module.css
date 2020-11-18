@@ -2,7 +2,7 @@ header.wrapper {
   @apply flex justify-between my-8 items-center;
 
   & h1 {
-    @apply cursor-pointer m-0;
+    @apply cursor-pointer m-0 relative;
 
     font-family: 'Noto Serif SC', serif;
 
@@ -13,6 +13,16 @@ header.wrapper {
 
       &::before {
         content: '-- ';
+      }
+
+      @screen phone {
+        @apply absolute left-0 right-0 m-0 text-text-gray text-right whitespace-no-wrap;
+
+        bottom: -1.4rem;
+
+        &::before {
+          content: '';
+        }
       }
     }
   }

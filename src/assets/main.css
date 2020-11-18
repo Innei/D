@@ -8,6 +8,10 @@ body {
 
 body {
   min-height: 100%;
+
+  @screen phone {
+    @apply px-4;
+  }
 }
 a {
   @apply transition-opacity duration-75;
