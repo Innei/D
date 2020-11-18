@@ -1,6 +1,6 @@
 import { gql, GraphQLClient } from 'graphql-request'
 import { configs } from '../../configs'
-import { NoteListPayload, Pager } from './types'
+import { NoteContentPayload, NoteListPayload, Pager } from './types'
 const client = new GraphQLClient(configs.apiBase, {})
 export const getNoteList = async (page = 1, size = 10) => {
   const query = gql`
@@ -30,4 +30,27 @@ export const getNoteList = async (page = 1, size = 10) => {
     data: payload.getNotesWithPager.data as NoteListPayload,
     pager: payload.getNotesWithPager.pager as Pager,
   }
+}
+
+export const getNoteContent = async (nid: number) => {
+  const query = gql`
+    query getNoteContent($nid: Int) {
+      getNoteById(nid: $nid) {
+        data {
+          title
+          created
+          modified
+          text
+          nid
+          _id
+        }
+      }
+    }
+  `
+
+  const payload = await client.request(query, {
+    nid,
+  })
+
+  return payload.getNoteById.data as NoteContentPayload
 }

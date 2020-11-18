@@ -17,6 +17,8 @@ module.exports = {
       colors: {
         theme: '#2ecc71',
         backcolor: 'rgb(255, 255, 249)',
+        text: '#000',
+        'text-gray': 'rgb(128, 128, 128)',
       },
       opacity: {
         10: '0.1',

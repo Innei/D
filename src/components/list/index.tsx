@@ -20,7 +20,7 @@ export const NoteList = defineComponent({
           const month = created.getMonth() + 1
           return (
             <li key={note._id}>
-              <RouterLink to={`/note/${note.nid}`}>
+              <RouterLink to={`/notes/${note.nid}`}>
                 <span class={styles['title']}>{note.title}</span>
                 <span class={styles['created']}>{`${month}/${day}`}</span>
               </RouterLink>

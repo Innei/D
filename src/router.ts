@@ -17,6 +17,15 @@ const routes: RouteRecordRaw[] = [
         ),
         name: 'home',
       },
+
+      {
+        path: '/notes/:id',
+        props: true,
+        component: defineAsyncComponent(() =>
+          import('@/views/content').then((mo) => mo.NoteContentView),
+        ),
+        name: 'note',
+      },
     ],
   },
 ]

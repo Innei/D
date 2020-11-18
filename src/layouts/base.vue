@@ -28,6 +28,5 @@ export default defineComponent({
 
 main {
   margin: 3rem 0;
-  padding: 1rem;
 }
 </style>

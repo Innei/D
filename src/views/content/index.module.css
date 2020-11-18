@@ -1,0 +1,10 @@
+.wrapper {
+  @apply mt-20;
+  & h1 {
+    @apply my-8;
+  }
+
+  & .time {
+    @apply my-4 text-text-gray;
+  }
+}

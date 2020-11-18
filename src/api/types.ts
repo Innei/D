@@ -10,3 +10,12 @@ export type NoteListPayload = {
   nid: number
   _id: number
 }[]
+
+export type NoteContentPayload = {
+  title: string
+  created: string
+  modified: string
+  text: string
+  nid: number
+  _id: string
+}

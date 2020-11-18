@@ -1,4 +1,6 @@
 .root {
+  padding: 1rem;
+
   & li {
     line-height: 1.5;
   }
