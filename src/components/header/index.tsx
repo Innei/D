@@ -2,11 +2,11 @@ import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { configs } from '../../../configs'
-import styles from './index.module.css'
+import './index.css'
 export const Header = defineComponent({
   setup() {
     return () => (
-      <header class={styles['wrapper']}>
+      <header class={'header-wrapper'}>
         <RouterLink to={'/'}>
           <h1>
             {configs.title}
@@ -14,7 +14,7 @@ export const Header = defineComponent({
           </h1>
         </RouterLink>
 
-        <div class={styles['links']}>
+        <div class={'links'}>
           <RouterLink to={'/about'}>About</RouterLink>
           <a href={configs.website} target={'_blank'}>
             Website

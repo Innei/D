@@ -1,11 +1,12 @@
 import { computed, defineComponent, onMounted, reactive } from 'vue'
-import styles from './index.module.css'
+import './index.css'
 import BaseLayout from '@/layouts/base.vue'
 import { useRoute } from 'vue-router'
 import { getNoteContent } from '@/api'
 import { NoteContentPayload } from '@/api/types'
 // @ts-ignore
 import VueMarkdownIt from 'vue3-markdown-it'
+import { configs } from '../../../configs'
 
 export const NoteContentView = defineComponent({
   setup() {
@@ -18,7 +19,7 @@ export const NoteContentView = defineComponent({
     })
     onMounted(async () => {
       data.note = await getNoteContent(nid)
-      document.title = data.note.title
+      document.title = data.note.title + ' | ' + configs.title
     })
 
     const formatTime = computed(() => {
@@ -36,15 +37,15 @@ export const NoteContentView = defineComponent({
     return () => (
       <BaseLayout>
         {data.note._id && (
-          <div class={styles['wrapper']}>
+          <div class={'content-wrapper'}>
             <h1>{data.note.title}</h1>
-            <div class={styles['time']}>{formatTime.value}</div>
+            <div class={'time'}>{formatTime.value}</div>
             <article>
               <h1 style={{ display: 'none' }}>{data.note.title}</h1>
               <VueMarkdownIt source={data.note.text} html></VueMarkdownIt>
             </article>
 
-            <div class={styles['notice']}>
+            <div class={'notice'}>
               Visit Full version:{' '}
               <a
                 href={`//innei.ren/notes/${data.note.nid}`}

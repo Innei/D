@@ -1,13 +1,13 @@
 import { BaseLayout } from '@/layouts'
 import { defineComponent } from 'vue'
-import styles from './index.module.css'
+import './index.css'
 
 export const AboutView = defineComponent({
   setup() {
     return () => {
       return (
         <BaseLayout>
-          <article class={styles['wrapper']}>
+          <article class={'page-wrapper'}>
             <h1>This Site.</h1>
 
             <p>Written by Vue 3,</p>

@@ -1,7 +1,7 @@
 import { NoteListPayload } from '@/api/types'
 import { defineComponent, PropType } from 'vue'
 import { RouterLink } from 'vue-router'
-import styles from './index.module.css'
+import './index.css'
 
 export const NoteList = defineComponent({
   props: {
@@ -13,7 +13,7 @@ export const NoteList = defineComponent({
   },
   setup(props) {
     return () => (
-      <ul class={styles['root']}>
+      <ul class={'list-root'}>
         {props.notes.map((note) => {
           const created = new Date(note.created)
           const day = created.getDate()
@@ -21,8 +21,8 @@ export const NoteList = defineComponent({
           return (
             <li key={note._id}>
               <RouterLink to={`/notes/${note.nid}`}>
-                <span class={styles['title']}>{note.title}</span>
-                <span class={styles['created']}>{`${month}/${day}`}</span>
+                <span class={'title'}>{note.title}</span>
+                <span class={'created'}>{`${month}/${day}`}</span>
               </RouterLink>
             </li>
           )

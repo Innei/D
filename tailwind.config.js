@@ -1,10 +1,10 @@
 module.exports = {
   future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
+    // removeDeprecatedGapUtilities: true,
+    // purgeLayersByDefault: true,
   },
-  purge: ['./components/**/*.{js,ts,jsx,tsx}', './views/**/*.{js,ts,jsx,tsx}'],
-
+  // purge: ['./components/**/*.{js,ts,jsx,tsx}', './views/**/*.{js,ts,jsx,tsx}'],
+  purge: false,
   theme: {
     extend: {
       screens: {

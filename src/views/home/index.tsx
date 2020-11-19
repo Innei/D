@@ -6,7 +6,7 @@ import router from '@/router'
 import clsx from 'clsx'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import styles from './index.module.css'
+import './index.css'
 
 export const HomeView = defineComponent({
   setup() {
@@ -24,10 +24,10 @@ export const HomeView = defineComponent({
 
     const currentPage = ref(parseInt(route.query.page as any) || 1)
     onMounted(async () => {
-      await fetchData(currentPage.value, 20)
+      await fetchData(currentPage.value)
     })
 
-    const fetchData = async (page = 1, size = 20) => {
+    const fetchData = async (page = 1, size = 15) => {
       const payload = await getNoteList(page, size)
       data.notes = payload.data
 
@@ -42,12 +42,9 @@ export const HomeView = defineComponent({
         <NoteList notes={data.notes} />
 
         {!loading.value && (
-          <div class={styles['pager']}>
+          <div class={'pager'}>
             <div
-              class={clsx(
-                styles['prev'],
-                !data.pager.hasPrevPage && styles['disable'],
-              )}
+              class={clsx('prev', !data.pager.hasPrevPage && 'disable')}
               onClick={() => {
                 if (!data.pager.hasPrevPage) {
                   return
@@ -65,10 +62,7 @@ export const HomeView = defineComponent({
               上一页
             </div>
             <div
-              class={clsx(
-                styles['next'],
-                !data.pager.hasNextPage && styles['disable'],
-              )}
+              class={clsx('next', !data.pager.hasNextPage && 'disable')}
               onClick={() => {
                 if (!data.pager.hasNextPage) {
                   return

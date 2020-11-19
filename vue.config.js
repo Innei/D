@@ -6,10 +6,10 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath:
-    process.env.NODE_ENV === 'production'
-      ? !process.env.VUE_APP_PUBLIC_URL
-        ? 'https://cdn.jsdelivr.net/gh/mx-space/notebook@gh-pages'
-        : ''
-      : '/',
+  // publicPath:
+  //   process.env.NODE_ENV === 'production'
+  //     ? !process.env.VUE_APP_PUBLIC_URL
+  //       ? 'https://cdn.jsdelivr.net/gh/mx-space/notebook@gh-pages'
+  //       : ''
+  //     : '/',
 }

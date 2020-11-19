@@ -1,3 +1,4 @@
+import { configs } from '../../../configs'
 import { defineComponent } from 'vue'
 
 export const Footer = defineComponent({
@@ -5,9 +6,11 @@ export const Footer = defineComponent({
     return () => {
       const y = new Date().getFullYear()
       return (
-        <footer class={'text-text-gray font-serif text-xs pb-6'}>
-          Copyright © {y} Innei. Powered by Vue 3.
-        </footer>
+        <a href={configs.website}>
+          <footer class={'text-text-gray font-serif text-xs pb-6 inline-block'}>
+            Copyright © {y} Innei. Powered by Vue 3.
+          </footer>
+        </a>
       )
     }
   },

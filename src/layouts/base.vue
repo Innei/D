@@ -30,5 +30,6 @@ export default defineComponent({
 
 main {
   margin: 3rem 0;
+  min-height: calc(100vh - 16rem);
 }
 </style>

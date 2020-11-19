@@ -1,9 +1,16 @@
-.root {
+.list-root {
   padding: 1rem;
 
   & li {
     line-height: 1.5;
+
+    @apply duration-150 transition-transform;
+
+    &:hover {
+      @apply transform translate-x-4;
+    }
   }
+
   & .title {
     @apply text-lg;
   }
