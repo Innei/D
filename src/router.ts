@@ -1,3 +1,11 @@
+/*
+ * @Author: Innei
+ * @Date: 2020-11-18 21:58:15
+ * @LastEditTime: 2021-03-14 14:30:14
+ * @LastEditors: Innei
+ * @FilePath: /nai-vue/src/router.ts
+ * Mark: Coding with Love
+ */
 import QProgress from 'qier-progress'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { configs } from '../configs'
@@ -11,7 +19,7 @@ const routes: RouteRecordRaw[] = [
   {
     name: 'root',
     path: '/',
-    component: () => import('./App'),
+    component: () => import('./App.vue'),
     children: [
       {
         path: '/',

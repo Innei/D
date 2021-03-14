@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2020-11-18 19:02:42
- * @LastEditTime: 2021-03-14 13:44:08
+ * @LastEditTime: 2021-03-14 14:27:50
  * @LastEditors: Innei
  * @FilePath: /nai-vue/src/views/content/index.tsx
  * Mark: Coding with Love
@@ -44,6 +44,7 @@ const parser = unified()
     },
   })
 export const NoteContentView = defineComponent({
+  name: 'note',
   setup() {
     const route = useRoute()
 
