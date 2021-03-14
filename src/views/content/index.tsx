@@ -1,13 +1,48 @@
+/*
+ * @Author: Innei
+ * @Date: 2020-11-18 19:02:42
+ * @LastEditTime: 2021-03-14 13:44:08
+ * @LastEditors: Innei
+ * @FilePath: /nai-vue/src/views/content/index.tsx
+ * Mark: Coding with Love
+ */
 import { computed, defineComponent, onMounted, reactive } from 'vue'
 import './index.css'
-import BaseLayout from '@/layouts/base.vue'
+import BaseLayout from 'layouts/base.vue'
 import { useRoute } from 'vue-router'
-import { getNoteContent } from '@/api'
-import { NoteContentPayload } from '@/api/types'
-// @ts-ignore
-import VueMarkdownIt from 'vue3-markdown-it'
+import { getNoteContent } from 'api'
+import { NoteContentPayload } from 'api/types'
 import { configs } from '../../../configs'
-
+import html from 'remark-html'
+/// NOTICE: must use old version of remark and unified, because latest unified breaking change many apis.
+// @ts-ignore
+import markdown from 'remark-parse'
+import unified from 'unified'
+import gfm from 'remark-gfm'
+import rules from 'utils/rules'
+const parser = unified()
+  .use(markdown)
+  .use(gfm)
+  .use(rules)
+  .use(html, {
+    handlers: {
+      spoiler: (h, node) => {
+        return h(
+          node,
+          'del',
+          {
+            class: 'spoiler',
+          },
+          [
+            {
+              type: 'text',
+              value: node.value,
+            },
+          ],
+        )
+      },
+    },
+  })
 export const NoteContentView = defineComponent({
   setup() {
     const route = useRoute()
@@ -42,7 +77,9 @@ export const NoteContentView = defineComponent({
             <div class={'time'}>{formatTime.value}</div>
             <article>
               <h1 style={{ display: 'none' }}>{data.note.title}</h1>
-              <VueMarkdownIt source={data.note.text} html></VueMarkdownIt>
+              <div
+                innerHTML={parser.processSync(data.note.text).toString()}
+              ></div>
             </article>
 
             <div class={'notice'}>

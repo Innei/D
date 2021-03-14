@@ -1,8 +1,16 @@
-import { getNoteList } from '@/api'
-import { NoteListPayload, Pager } from '@/api/types'
-import { NoteList } from '@/components/list'
-import BaseLayout from '@/layouts/base.vue'
-import router from '@/router'
+/*
+ * @Author: Innei
+ * @Date: 2020-11-18 15:42:12
+ * @LastEditTime: 2021-03-14 11:08:31
+ * @LastEditors: Innei
+ * @FilePath: /nai-vue/src/views/home/index.tsx
+ * Mark: Coding with Love
+ */
+import { getNoteList } from 'api'
+import { NoteListPayload, Pager } from 'api/types'
+import { NoteList } from 'components/list'
+import BaseLayout from 'layouts/base.vue'
+import router from 'router'
 import clsx from 'clsx'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'

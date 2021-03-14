@@ -4,19 +4,17 @@ header.header-wrapper {
   & h1 {
     @apply cursor-pointer m-0 relative;
 
-    font-family: 'Noto Serif SC', serif;
-
     & small {
-      @apply text-base ml-3;
+      @apply text-sm ml-3;
 
-      font-family: 'Roboto Slab', serif;
+      font-family: Heiti SC;
 
       &::before {
         content: 'ー ';
       }
 
       @screen phone {
-        @apply absolute left-0 right-0 m-0 text-text-gray text-right whitespace-no-wrap;
+        @apply absolute left-0 right-0 m-0 text-text-gray text-right whitespace-nowrap;
 
         bottom: -1.4rem;
 

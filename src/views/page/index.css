@@ -6,6 +6,6 @@
   }
 
   & a {
-    @apply underline mr-3 inline-block;
+    @apply underline mr-3;
   }
 }

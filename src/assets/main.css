@@ -1,18 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;400&family=Roboto+Slab:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Noto+Serif+SC:wght@400&display=swap');
+
 html,
 body {
-  font-family: serif;
+  font-family: 'Crimson Text', Noto Serif SC;
 
   @apply bg-backcolor;
 }
 
 body {
   min-height: 100%;
-
-  @screen phone {
-    @apply px-4;
-  }
+  @apply px-4;
 }
+
 a {
   @apply transition-opacity duration-75;
 }
@@ -27,11 +26,17 @@ article {
   & h2,
   & h3,
   & h4 {
-    @apply text-2xl font-bold my-4 pl-2;
+    @apply text-xl font-light my-4;
+
+    &::before {
+      content: '# ';
+    }
   }
 
   & p {
     @apply my-4;
+
+    text-indent: 2rem;
   }
 
   & blockquote {
@@ -39,7 +44,11 @@ article {
     margin: 0px;
     border-left: 0.2rem solid rgb(119, 119, 119);
     color: rgb(119, 119, 119);
-    padding-left: 1rem;
+    padding-left: 1.8rem;
+
+    & > p {
+      text-indent: 0;
+    }
   }
 
   & img {
@@ -48,6 +57,20 @@ article {
 
   & li {
     @apply list-disc my-2;
+  }
+
+  & del.spoiler {
+    text-decoration: none;
+  }
+
+  & .spoiler {
+    position: relative;
+    background: currentColor;
+    transition: background 0.5s;
+  }
+
+  & .spoiler:hover {
+    background: transparent;
   }
 }
 

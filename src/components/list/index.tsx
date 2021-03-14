@@ -1,4 +1,4 @@
-import { NoteListPayload } from '@/api/types'
+import { NoteListPayload } from 'api/types'
 import { defineComponent, PropType } from 'vue'
 import { RouterLink } from 'vue-router'
 import './index.css'

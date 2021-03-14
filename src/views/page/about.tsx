@@ -1,4 +1,12 @@
-import { BaseLayout } from '@/layouts'
+/*
+ * @Author: Innei
+ * @Date: 2020-11-18 22:02:20
+ * @LastEditTime: 2021-03-14 11:24:06
+ * @LastEditors: Innei
+ * @FilePath: /nai-vue/src/views/page/about.tsx
+ * Mark: Coding with Love
+ */
+import { BaseLayout } from 'layouts'
 import { defineComponent } from 'vue'
 import './index.css'
 
@@ -10,7 +18,7 @@ export const AboutView = defineComponent({
           <article class={'page-wrapper'}>
             <h1>This Site.</h1>
 
-            <p>Written by Vue 3,</p>
+            <p>Written by React & NextJS,</p>
             <p>GraphQL supported.</p>
 
             <h1>And me..</h1>
