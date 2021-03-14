@@ -16,9 +16,9 @@
     "remark-gfm": "1.0.0",
     "remark-html": "13.0.1",
     "remark-parse": "5.0.0",
-    "vue": "3.0.2",
-    "vue-router": "4.0.0-rc.3",
-    "vuex": "4.0.0-rc.1"
+    "vue": "3.0.7",
+    "vue-router": "4.0.5",
+    "vuex": "4.0.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "4.0.2",
