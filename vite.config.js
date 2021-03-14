@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2021-03-14 11:05:02
- * @LastEditTime: 2021-03-14 14:49:44
+ * @LastEditTime: 2021-03-14 15:08:39
  * @LastEditors: Innei
  * @FilePath: /nai-vue/vite.config.js
  * Mark: Coding with Love
@@ -20,7 +20,7 @@ export default defineConfig({
   base:
     process.env.NODE_ENV === 'development'
       ? undefined
-      : 'https://cdn.jsdelivr.net/gh/mx-space/nai-vue@gh-pages',
+      : 'https://cdn.jsdelivr.net/gh/mx-space/nai-vue@gh-pages/',
   esbuild: {
     jsxFactory: 'h',
     jsxFragment: 'Fragment',

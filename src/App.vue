@@ -1,7 +1,7 @@
 <!--
  * @Author: Innei
  * @Date: 2021-03-14 14:13:28
- * @LastEditTime: 2021-03-14 14:38:38
+ * @LastEditTime: 2021-03-14 15:16:07
  * @LastEditors: Innei
  * @FilePath: /nai-vue/src/App.vue
  * Mark: Coding with Love
@@ -15,11 +15,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent, onActivated } from '@vue/runtime-core'
 import { configs } from '../configs'
+
 export default defineComponent({
   setup() {
-    document.title = `${configs.title} | ${configs.subtitle}`
+    onActivated(() => {
+      document.title = `${configs.title} | ${configs.subtitle}`
+    })
   },
 })
 </script>
