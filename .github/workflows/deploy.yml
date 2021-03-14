@@ -23,7 +23,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - run: yarn build
-      - run: yarn lint
       - run: echo 'shizuri.net' > dist/CNAME
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
