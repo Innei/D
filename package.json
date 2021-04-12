@@ -32,7 +32,7 @@
     "core-js": "3.10.1",
     "eslint": "7.22.0",
     "eslint-plugin-vue": "7.7.0",
-    "postcss": "8.2.8",
+    "postcss": "8.2.10",
     "postcss-preset-env": "6.7.0",
     "rollup-plugin-analyzer": "4.0.0",
     "tailwindcss": "2.0.4",
