@@ -11,9 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": "./src",
-    "types": [
-      "webpack-env"
-    ],
     "paths": {},
     "lib": [
       "esnext",

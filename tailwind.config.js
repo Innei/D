@@ -1,21 +1,10 @@
-/*
- * @Author: Innei
- * @Date: 2020-11-18 15:45:09
- * @LastEditTime: 2021-03-14 11:34:41
- * @LastEditors: Innei
- * @FilePath: /nai-vue/tailwind.config.js
- * Mark: Coding with Love
- */
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
+  mode: 'jit',
   purge: [
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/views/**/*.{js,ts,jsx,tsx}',
   ],
-  // purge: false,
+
   theme: {
     extend: {
       screens: {

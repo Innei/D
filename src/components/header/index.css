@@ -14,12 +14,14 @@ header.header-wrapper {
       }
 
       @screen phone {
-        @apply absolute left-0 right-0 m-0 text-text-gray text-right whitespace-nowrap;
+        & {
+          @apply absolute left-0 right-0 m-0 text-text-gray text-right whitespace-nowrap;
 
-        bottom: -1.4rem;
+          bottom: -1.4rem;
 
-        &::before {
-          content: '';
+          &::before {
+            content: '';
+          }
         }
       }
     }

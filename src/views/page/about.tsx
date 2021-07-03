@@ -18,13 +18,13 @@ export const AboutView = defineComponent({
           <article class={'page-wrapper'}>
             <h1>This Site.</h1>
 
-            <p>Written by React & NextJS,</p>
+            <p>Powered by Vue 3 &amp; Vite</p>
             <p>GraphQL supported.</p>
 
             <h1>And me..</h1>
 
             <p>Third-year undergrad</p>
-            <p>Wenzhou University Oujiang College</p>
+            <p>Wenzhou University of Technology</p>
             <p>TypeScript, NodeJS</p>
             <p>NestJS, NextJS, NuxtJS, React, Vue</p>
             <p>
