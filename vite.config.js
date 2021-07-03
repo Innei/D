@@ -10,17 +10,19 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import analyze from 'rollup-plugin-analyzer'
+// import analyze from 'rollup-plugin-analyzer'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), tsconfigPaths(), analyze()],
+  plugins: [vue(), tsconfigPaths()],
   server: {
     port: 2333,
   },
+  // build: { minify: false, sourcemap: true },
   base:
     process.env.NODE_ENV === 'development'
       ? undefined
       : 'https://cdn.jsdelivr.net/gh/mx-space/nai-vue@gh-pages/',
+  // base: '',
   esbuild: {
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
