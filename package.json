@@ -3,38 +3,38 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development vite --mode development",
+    "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
     "clsx": "1.1.1",
-    "graphql": "15.5.1",
-    "graphql-request": "3.5.0",
+    "graphql": "15.5.0",
+    "graphql-request": "3.4.0",
     "normalize.css": "8.0.1",
     "qier-progress": "1.0.4",
     "remark": "13.0.0",
     "remark-gfm": "1.0.0",
     "remark-html": "13.0.1",
-    "remark-parse": "5.0.0",
-    "vue": "3.2",
+    "remark-parse": "^5",
+    "vue": "^3.2",
     "vue-router": "4.0.6"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "4.29.1",
-    "@typescript-eslint/parser": "4.29.1",
-    "@vitejs/plugin-vue": "1.4.0",
-    "@vue/compiler-sfc": "3.2.2",
-    "@vue/eslint-config-typescript": "7.0.0",
-    "autoprefixer": "10.3.1",
-    "eslint": "7.32.0",
-    "eslint-plugin-vue": "7.16.0",
-    "postcss": "8.3.6",
+    "@innei-util/eslint-config-ts": "0.2.3",
+    "@vitejs/plugin-vue": "1.1.5",
+    "@vue/compiler-sfc": "^3.0.7",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "autoprefixer": "10.2.5",
+    "eslint": "^7.22.0",
+    "eslint-plugin-vue": "^7.7.0",
+    "postcss": "8.2.8",
     "postcss-preset-env": "6.7.0",
     "rollup-plugin-analyzer": "4.0.0",
-    "tailwindcss": "2.2.7",
-    "typescript": "4.3.5",
-    "vite": "2.4.4",
-    "vite-tsconfig-paths": "3.3.13"
+    "tailwindcss": "~2.2",
+    "typescript": "4.2.3",
+    "unified": "9.2.1",
+    "vite": "2.0.5",
+    "vite-tsconfig-paths": "2.3.0"
   },
   "eslintConfig": {
     "root": true,
@@ -44,7 +44,8 @@
     "extends": [
       "plugin:vue/vue3-essential",
       "eslint:recommended",
-      "@vue/typescript"
+      "@vue/typescript",
+      "@innei-util/eslint-config-ts"
     ],
     "parserOptions": {
       "parser": "@typescript-eslint/parser"

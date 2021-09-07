@@ -6,9 +6,9 @@
  * @FilePath: /nai-vue/vite.config.js
  * Mark: Coding with Love
  */
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 // import analyze from 'rollup-plugin-analyzer'
 // https://vitejs.dev/config/
@@ -18,11 +18,11 @@ export default defineConfig({
     port: 2333,
   },
   // build: { minify: false, sourcemap: true },
-  base:
-    process.env.NODE_ENV === 'development'
-      ? undefined
-      : 'https://cdn.jsdelivr.net/gh/mx-space/nai-vue@gh-pages/',
-  // base: '',
+  // base:
+  //   process.env.NODE_ENV === 'development'
+  //     ? undefined
+  //     : 'https://cdn.jsdelivr.net/gh/mx-space/nai-vue@gh-pages/',
+  base: '',
   esbuild: {
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
