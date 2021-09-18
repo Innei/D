@@ -26,9 +26,7 @@ export const NoteContentView = defineComponent({
       document.title = data.note.title + ' | ' + configs.title
 
       const response = await fetch(
-        `${'https://api.innei.ren' || configs.apiBase}/v2/markdown/render/${
-          data.note.id
-        }`,
+        `${configs.apiBase}/v2/markdown/render/${data.note.id}`,
         {},
       )
 
