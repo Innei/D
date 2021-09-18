@@ -1,7 +1,7 @@
+import { NoteModel, Paginator } from 'graphql'
 import { gql, GraphQLClient } from 'graphql-request'
 import { configs } from '../../configs'
-import { NoteContentPayload, NoteListPayload, Pager } from './types'
-const client = new GraphQLClient(configs.apiBase, {})
+const client = new GraphQLClient(configs.apiBase + '/graphql', {})
 export const getNoteList = async (page = 1, size = 10) => {
   const query = gql`
     query getNoteList($page: Int, $size: Int) {
@@ -10,9 +10,9 @@ export const getNoteList = async (page = 1, size = 10) => {
           created
           title
           nid
-          _id
+          id
         }
-        pager {
+        pagination {
           hasNextPage
           hasPrevPage
           totalPage
@@ -27,8 +27,8 @@ export const getNoteList = async (page = 1, size = 10) => {
   })
 
   return {
-    data: payload.getNotesWithPager.data as NoteListPayload,
-    pager: payload.getNotesWithPager.pager as Pager,
+    data: payload.getNotesWithPager.data as NoteModel[],
+    pagination: payload.getNotesWithPager.pagination as Paginator,
   }
 }
 
@@ -42,7 +42,7 @@ export const getNoteContent = async (nid: number) => {
           modified
           text
           nid
-          _id
+          id
         }
       }
     }
@@ -52,5 +52,22 @@ export const getNoteContent = async (nid: number) => {
     nid,
   })
 
-  return payload.getNoteById.data as NoteContentPayload
+  return payload.getNoteById.data as NoteModel
+}
+
+export const getNoteId = async (nid: number) => {
+  const query = gql`
+  query getNoteId($nid: Int) {
+    getNoteById(nid: $nid) {
+      data:{
+        id
+      }
+    }
+  }
+  `
+
+  const payload = await client.request(query, {
+    nid,
+  })
+  return payload.getNoteById.data.id
 }

@@ -8,10 +8,10 @@
  */
 import { getNoteList } from 'api'
 import { NoteListPayload, Pager } from 'api/types'
+import clsx from 'clsx'
 import { NoteList } from 'components/list'
 import BaseLayout from 'layouts/base.vue'
 import router from 'router'
-import clsx from 'clsx'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import './index.css'
@@ -39,7 +39,7 @@ export const HomeView = defineComponent({
       const payload = await getNoteList(page, size)
       data.notes = payload.data
 
-      data.pager = payload.pager
+      data.pager = payload.pagination
 
       loading.value = false
       currentPage.value = page

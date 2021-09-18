@@ -20,6 +20,11 @@ a:hover {
 }
 
 article {
+  & h1:first-child {
+    &::before {
+      @apply hidden;
+    }
+  }
   @apply break-all;
   line-height: 1.5;
   & h1,

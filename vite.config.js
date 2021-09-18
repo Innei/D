@@ -15,7 +15,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [vue(), tsconfigPaths()],
   server: {
-    port: 2333,
+    port: 2323,
   },
   // build: { minify: false, sourcemap: true },
   // base:

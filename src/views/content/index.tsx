@@ -1,48 +1,13 @@
-/*
- * @Author: Innei
- * @Date: 2020-11-18 19:02:42
- * @LastEditTime: 2021-03-14 14:27:50
- * @LastEditors: Innei
- * @FilePath: /nai-vue/src/views/content/index.tsx
- * Mark: Coding with Love
- */
-import { computed, defineComponent, onMounted, reactive } from 'vue'
-import './index.css'
-import BaseLayout from 'layouts/base.vue'
-import { useRoute } from 'vue-router'
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { getNoteContent } from 'api'
-import { NoteContentPayload } from 'api/types'
+import { NoteModel } from 'graphql'
+import BaseLayout from 'layouts/base.vue'
+import { defineComponent, onMounted, onUnmounted, reactive } from 'vue'
+import { useRoute } from 'vue-router'
 import { configs } from '../../../configs'
-import html from 'remark-html'
-/// NOTICE: must use old version of remark and unified, because latest unified breaking change many apis.
-// @ts-ignore
-import markdown from 'remark-parse'
-import unified from 'unified'
-import gfm from 'remark-gfm'
-import rules from 'utils/rules'
-const parser = unified()
-  .use(markdown)
-  .use(gfm)
-  .use(rules)
-  .use(html, {
-    handlers: {
-      spoiler: (h, node) => {
-        return h(
-          node,
-          'del',
-          {
-            class: 'spoiler',
-          },
-          [
-            {
-              type: 'text',
-              value: node.value,
-            },
-          ],
-        )
-      },
-    },
-  })
+import './index.css'
+
 export const NoteContentView = defineComponent({
   name: 'note',
   setup() {
@@ -51,51 +16,46 @@ export const NoteContentView = defineComponent({
     const nid = parseInt(route.params.id as any)
 
     const data = reactive({
-      note: {} as NoteContentPayload,
+      note: {} as NoteModel,
+    })
+    onUnmounted(() => {
+      document.title = `${configs.title} | ${configs.subtitle}`
     })
     onMounted(async () => {
       data.note = await getNoteContent(nid)
       document.title = data.note.title + ' | ' + configs.title
-    })
 
-    const formatTime = computed(() => {
-      const d = new Date(data.note.created)
+      const response = await fetch(
+        `${'https://api.innei.ren' || configs.apiBase}/v2/markdown/render/${
+          data.note.id
+        }`,
+        {},
+      )
 
-      const day = d.getDate()
-      const month = d.getMonth() + 1
-      const y = d.getFullYear()
+      const text = await response.text()
+      const $html = document.getElementById('html')!
+      try {
+        const parser = new DOMParser()
+        const $ = parser.parseFromString(text, 'text/html')
+        const $article = $.querySelector('article')!
 
-      return `${y}-${month
-        .toString()
-        .padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+        const $h1 = $article.querySelector('h1')!
+        $h1.style.cssText = `text-align:center`
+
+        $html.appendChild($article)
+
+        const $style = $.querySelectorAll('style')!
+        $style.forEach((style) => {
+          $html.prepend(style)
+        })
+      } catch (e) {
+        console.error(e)
+        $html.innerHTML = `<p>404</p>`
+      }
     })
 
     return () => (
-      <BaseLayout>
-        {data.note._id && (
-          <div class={'content-wrapper'}>
-            <h1>{data.note.title}</h1>
-            <div class={'time'}>{formatTime.value}</div>
-            <article>
-              <h1 style={{ display: 'none' }}>{data.note.title}</h1>
-              <div
-                innerHTML={parser.processSync(data.note.text).toString()}
-              ></div>
-            </article>
-
-            <div class={'notice'}>
-              Visit Full version:{' '}
-              <a
-                href={`//innei.ren/notes/${data.note.nid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                https://innei.ren/notes/{data.note.nid}
-              </a>
-            </div>
-          </div>
-        )}
-      </BaseLayout>
+      <BaseLayout>{data.note.id && <div id="html"></div>}</BaseLayout>
     )
   },
 })

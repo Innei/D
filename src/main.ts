@@ -9,14 +9,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/tailwind.css'
+import './assets/main.css'
 import 'normalize.css'
 import router from './router'
-import './assets/main.css'
 createApp(App).use(router).mount('#app')
-
-// FIXME: this is only polyfill for old version unified.
-// @ts-ignore
-// window.process = {
-//   env: {},
-//   cwd: () => {},
-// }
