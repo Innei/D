@@ -8,13 +8,13 @@ export const AboutView = defineComponent({
       return (
         <BaseLayout>
           <article class={'page-wrapper'}>
-            <h1>This Site</h1>
+            <h2>This Site</h2>
 
             <p>Powered by Vue 3 &amp;</p>
             <p>Build with Vite</p>
             <p>Use the GraphQL</p>
 
-            <h1>And me</h1>
+            <h2>And me</h2>
 
             <p>Undergraduate 2022</p>
             <p>Wenzhou University of Technology(aka. 温州理工学院)</p>
