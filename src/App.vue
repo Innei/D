@@ -1,11 +1,3 @@
-<!--
- * @Author: Innei
- * @Date: 2021-03-14 14:13:28
- * @LastEditTime: 2021-03-14 15:16:07
- * @LastEditors: Innei
- * @FilePath: /nai-vue/src/App.vue
- * Mark: Coding with Love
--->
 <template>
   <router-view v-slot="{ Component }">
     <keep-alive :exclude="['note']">

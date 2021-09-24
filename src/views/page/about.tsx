@@ -1,11 +1,3 @@
-/*
- * @Author: Innei
- * @Date: 2020-11-18 22:02:20
- * @LastEditTime: 2021-03-14 11:24:06
- * @LastEditors: Innei
- * @FilePath: /nai-vue/src/views/page/about.tsx
- * Mark: Coding with Love
- */
 import { BaseLayout } from 'layouts'
 import { defineComponent } from 'vue'
 import './index.css'
@@ -16,30 +8,27 @@ export const AboutView = defineComponent({
       return (
         <BaseLayout>
           <article class={'page-wrapper'}>
-            <h1>This Site.</h1>
+            <h1>This Site</h1>
 
-            <p>Powered by Vue 3 &amp; Vite</p>
-            <p>GraphQL supported.</p>
+            <p>Powered by Vue 3 &amp;</p>
+            <p>Build with Vite</p>
+            <p>Use the GraphQL</p>
 
-            <h1>And me..</h1>
+            <h1>And me</h1>
 
-            <p>Third-year undergrad</p>
-            <p>Wenzhou University of Technology</p>
+            <p>Undergraduate 2022</p>
+            <p>Wenzhou University of Technology(aka. 温州理工学院)</p>
             <p>TypeScript, NodeJS</p>
-            <p>NestJS, NextJS, NuxtJS, React, Vue</p>
+            <p>NestJS, NextJS, NuxtJS, React, Vue, and more.</p>
+            <p>Coding with love, to make something possible.</p>
             <p>
-              <a
-                href="http://github.com/innei"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="http://innei.ren" target="_blank">
+                Home Page
+              </a>
+              <a href="http://github.com/innei" target="_blank">
                 GitHub
               </a>
-              <a
-                href="http://innei.ren/feed"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="http://innei.ren/feed" target="_blank">
                 RSS
               </a>
             </p>
