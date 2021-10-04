@@ -1,5 +1,12 @@
 .content-wrapper {
   @apply mt-20;
+
+  article {
+    h1:first-child {
+      @apply text-center;
+    }
+  }
+
   & h1 {
     @apply mt-8 mb-4;
   }

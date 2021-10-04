@@ -26,26 +26,19 @@ export const NoteContentView = defineComponent({
       document.title = data.note.title + ' | ' + configs.title
 
       const response = await fetch(
-        `${configs.apiBase}/v2/markdown/render/${data.note.id}`,
+        `${configs.apiBase}/v2/markdown/render/structure/${data.note.id}`,
         {},
       )
 
-      const text = await response.text()
+      const json = await response.json()
+
+      const { body, script, link, extra_scripts: extraScripts } = json
+
       const $html = document.getElementById('html')!
       try {
-        const parser = new DOMParser()
-        const $ = parser.parseFromString(text, 'text/html')
-        const $article = $.querySelector('article')!
-
-        const $h1 = $article.querySelector('h1')!
-        $h1.style.cssText = `text-align:center`
-
-        $html.appendChild($article)
-
-        const $style = $.querySelectorAll('style')!
-        $style.forEach((style) => {
-          $html.prepend(style)
-        })
+        $html.innerHTML = `${extraScripts.join('')}<script>${script.join(
+          ';',
+        )}</script>${link.join('')}${body}`
       } catch (e) {
         console.error(e)
         $html.innerHTML = `<p>404</p>`
@@ -53,7 +46,13 @@ export const NoteContentView = defineComponent({
     })
 
     return () => (
-      <BaseLayout>{data.note.id && <div id="html"></div>}</BaseLayout>
+      <BaseLayout>
+        {data.note.id && (
+          <div id="html" class="content-wrapper">
+            Loading...
+          </div>
+        )}
+      </BaseLayout>
     )
   },
 })
