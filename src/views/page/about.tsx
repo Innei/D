@@ -12,7 +12,6 @@ export const AboutView = defineComponent({
 
             <p>Powered by Vue 3 &amp;</p>
             <p>Build with Vite</p>
-            <p>Use the GraphQL</p>
 
             <h2>And me</h2>
 

@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: [
+  content: [
     './src/components/**/*.{vue,js,ts,jsx,tsx}',
     './src/views/**/*.{vue,js,ts,jsx,tsx}',
   ],
@@ -19,19 +19,6 @@ module.exports = {
         backcolor: 'rgb(255, 255, 249)',
         text: '#000',
         'text-gray': 'rgb(128, 128, 128)',
-      },
-      opacity: {
-        10: '0.1',
-        20: '0.2',
-        30: '0.3',
-        40: '0.4',
-        46: '0.46',
-        60: '0.6',
-        70: '0.7',
-        80: '0.8',
-        85: '0.85',
-        90: '0.9',
-        95: '0.95',
       },
     },
   },

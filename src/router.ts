@@ -8,7 +8,7 @@
  */
 import QProgress from 'qier-progress'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { configs } from '../configs'
+import { configs } from './configs'
 import { NoteContentView } from './views/content'
 import { HomeView } from './views/home'
 import { AboutView } from './views/page/about'
@@ -55,9 +55,10 @@ export const router = createRouter({
 router.beforeEach((before, to, next) => {
   qprogress.start()
   if (to.meta.title) {
-    document.title = to.meta.fulltitle
-      ? to.meta.title
-      : to.meta.title + ' | ' + configs.title
+    document.title =
+      ((to.meta.fulltitle
+        ? to.meta.title
+        : to.meta.title + ' | ' + configs.title) as any) ?? ''
   }
   next()
 })

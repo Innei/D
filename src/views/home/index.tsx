@@ -1,17 +1,9 @@
-/*
- * @Author: Innei
- * @Date: 2020-11-18 15:42:12
- * @LastEditTime: 2021-03-14 11:08:31
- * @LastEditors: Innei
- * @FilePath: /nai-vue/src/views/home/index.tsx
- * Mark: Coding with Love
- */
-import { getNoteList } from 'api'
-import { NoteListPayload, Pager } from 'api/types'
+import { NoteModel, Pager } from '@mx-space/api-client'
 import clsx from 'clsx'
 import { NoteList } from 'components/list'
 import BaseLayout from 'layouts/base.vue'
 import router from 'router'
+import { client } from 'utils/client'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import './index.css'
@@ -20,7 +12,7 @@ export const HomeView = defineComponent({
   setup() {
     const loading = ref(true)
     const data = reactive({
-      notes: [] as NoteListPayload,
+      notes: [] as NoteModel[],
       pager: {
         hasNextPage: false,
         hasPrevPage: false,
@@ -36,7 +28,7 @@ export const HomeView = defineComponent({
     })
 
     const fetchData = async (page = 1, size = 15) => {
-      const payload = await getNoteList(page, size)
+      const payload = await client.note.getList(page, size)
       data.notes = payload.data
 
       data.pager = payload.pagination

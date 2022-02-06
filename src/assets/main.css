@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Noto+Serif+SC:wght@400&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   font-family: 'Crimson Text', Noto Serif SC;
@@ -16,7 +20,7 @@ a {
   @apply transition-opacity duration-75;
 }
 a:hover {
-  @apply text-opacity-85;
+  @apply text-opacity-[0.85];
 }
 
 article {

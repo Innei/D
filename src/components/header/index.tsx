@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 
-import { configs } from '../../../configs'
+import { configs } from '../../configs'
 import './index.css'
 export const Header = defineComponent({
   setup() {

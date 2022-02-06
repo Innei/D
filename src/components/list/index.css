@@ -16,6 +16,6 @@
     @apply text-lg;
   }
   & .created {
-    @apply ml-4 text-sm text-opacity-85;
+    @apply ml-4 text-sm text-opacity-[0.85];
   }
 }

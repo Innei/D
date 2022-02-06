@@ -1,15 +1,78 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-import { getNoteContent } from 'api'
-import { NoteModel } from 'graphql'
+import { NoteModel } from '@mx-space/api-client'
 import BaseLayout from 'layouts/base.vue'
-import { defineComponent, onMounted, onUnmounted, reactive } from 'vue'
+import { client } from 'utils/client'
+import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { configs } from '../../../configs'
-import './index.css'
+import { configs } from '../../configs'
 
+customElements.define(
+  'markdown-render',
+  class MarkdownRender extends HTMLElement {
+    constructor() {
+      super()
+      this.attachShadow({ mode: 'open' })
+    }
+
+    static get observedAttributes() {
+      return ['props']
+    }
+
+    render() {
+      const shadowRoot = this.shadowRoot!
+
+      shadowRoot.innerHTML = ''
+
+      const props = this.getAttribute('props')
+      if (!props) {
+        return
+      }
+      const propsObj = JSON.parse(props)
+      const { style, body, script, link, extraScripts } = propsObj
+
+      const $styles: HTMLElement[] = style.map((text: string) => {
+        const $style = document.createElement('style')
+        $style.innerHTML = text || ''
+        return $style
+      })
+
+      const $scripts: HTMLElement[] = script.map((text: string) => {
+        const $script = document.createElement('script')
+        $script.innerHTML = text || ''
+        return $script
+      })
+
+      const $links: HTMLElement[] = link.map((text: string) => {
+        const $link = document.createElement('link')
+        $link.setAttribute('rel', 'stylesheet')
+        $link.setAttribute('href', text || '')
+        return $link
+      })
+
+      const $extraScripts: HTMLElement[] = extraScripts.map((text: string) => {
+        const $script = document.createElement('script')
+
+        $script.setAttribute('src', text || '')
+        return $script
+      })
+
+      const $body = document.createElement('div')
+      $body.innerHTML = body[0] || ''
+
+      shadowRoot.append(
+        ...$styles,
+        ...$scripts,
+        ...$links,
+        $body,
+        ...$extraScripts,
+      )
+    }
+    attributeChangedCallback() {
+      this.render()
+    }
+  },
+)
 export const NoteContentView = defineComponent({
-  name: 'note',
+  name: 'note-view',
   setup() {
     const route = useRoute()
 
@@ -21,36 +84,36 @@ export const NoteContentView = defineComponent({
     onUnmounted(() => {
       document.title = `${configs.title} | ${configs.subtitle}`
     })
+
+    const loading = ref(false)
+    const renderProps = ref<any>()
     onMounted(async () => {
-      data.note = await getNoteContent(nid)
-      document.title = data.note.title + ' | ' + configs.title
-
-      const response = await fetch(
-        `${configs.apiBase}/v2/markdown/render/structure/${data.note.id}`,
-        {},
-      )
-
-      const json = await response.json()
-
-      const { body, script, link, extra_scripts: extraScripts } = json
-
-      const $html = document.getElementById('html')!
+      loading.value = true
       try {
-        $html.innerHTML = `${extraScripts.join('')}<script>${script.join(
-          ';',
-        )}</script>${link.join('')}${body}`
+        data.note = (await client.note.getNoteById(nid)).data
+        document.title = data.note.title + ' | ' + configs.title
+        const json = await client.proxy.markdown.render
+          .structure(data.note.id)
+          .get<any>({ params: { theme: 'github' } })
+
+        renderProps.value = json
       } catch (e) {
         console.error(e)
-        $html.innerHTML = `<p>404</p>`
+      } finally {
+        loading.value = false
       }
     })
 
     return () => (
       <BaseLayout>
-        {data.note.id && (
+        {data.note.id && loading.value ? (
           <div id="html" class="content-wrapper">
             Loading...
           </div>
+        ) : (
+          <markdown-render
+            props={renderProps.value ? JSON.stringify(renderProps.value) : ''}
+          />
         )}
       </BaseLayout>
     )
