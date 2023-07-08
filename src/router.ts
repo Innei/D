@@ -7,7 +7,7 @@
  * Mark: Coding with Love
  */
 import QProgress from 'qier-progress'
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { configs } from './configs'
 import { NoteContentView } from './views/content'
 import { HomeView } from './views/home'
@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 
