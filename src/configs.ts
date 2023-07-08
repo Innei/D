@@ -6,7 +6,7 @@ export const configs = {
   previewHost: 'https://innei.in',
   footer: {
     info: [
-      '原站已迁移到 <a href="innei.in">innei.in</a>',
+      '原站已迁移到 <a href="//innei.in">innei.in</a>',
 
       '<a href="http://beian.miit.gov.cn/" target="_blank" rel="noreferrer">浙 ICP 备 20028356 号</a>',
     ],
