@@ -1,16 +1,15 @@
-/*
- * @Author: Innei
- * @Date: 2020-11-18 16:12:14
- * @LastEditTime: 2021-03-14 11:27:20
- * @LastEditors: Innei
- * @FilePath: /nai-vue/configs.ts
- * Mark: Coding with Love
- */
 export const configs = {
   title: '森',
-  subtitle: '寻的碎碎念',
-  website: 'https://innei.ren',
+  subtitle: '记录 生活中的想法',
+  website: 'https://innei.in',
 
+  footer: {
+    info: [
+      '原站已迁移到 <a href="innei.in">innei.in</a>',
+
+      '<a href="http://beian.miit.gov.cn/" target="_blank" rel="noreferrer">浙 ICP 备 20028356 号</a>',
+    ],
+  },
   apiBase:
     import.meta.env.VITE_APP_APIBASE?.toString() ?? 'https://api.innei.ren/v2',
 }
