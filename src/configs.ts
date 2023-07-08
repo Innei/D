@@ -3,6 +3,7 @@ export const configs = {
   subtitle: '记录 生活中的想法',
   website: 'https://innei.in',
 
+  previewHost: 'https://innei.in',
   footer: {
     info: [
       '原站已迁移到 <a href="innei.in">innei.in</a>',

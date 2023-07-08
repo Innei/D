@@ -115,6 +115,13 @@ export const NoteContentView = defineComponent({
             props={renderProps.value ? JSON.stringify(renderProps.value) : ''}
           />
         )}
+
+        <p class={'text-right mt-12 text-sm'}>
+          去原文地址获得更好阅读体验：{' '}
+          <a href={configs.previewHost + '/notes/' + data.note.nid}>
+            {configs.previewHost + '/notes/' + data.note.nid}
+          </a>
+        </p>
       </BaseLayout>
     )
   },
