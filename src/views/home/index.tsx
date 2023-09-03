@@ -1,8 +1,7 @@
 import { NoteModel, Pager } from '@mx-space/api-client'
-import clsx from 'clsx'
 import { NoteList } from 'components/list'
+import { configs } from 'configs'
 import BaseLayout from 'layouts/base.vue'
-import router from 'router'
 import { client } from 'utils/client'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -41,7 +40,12 @@ export const HomeView = defineComponent({
       <BaseLayout>
         <NoteList notes={data.notes} />
 
-        {!loading.value && (
+        {data?.pager?.hasNextPage && (
+          <p>
+            <a href={`${configs.website}/timeline?type=note`}>See more...</a>
+          </p>
+        )}
+        {/* {!loading.value && (
           <div class={'pager'}>
             <div
               class={clsx('prev', !data.pager.hasPrevPage && 'disable')}
@@ -80,7 +84,7 @@ export const HomeView = defineComponent({
               下一页
             </div>
           </div>
-        )}
+        )} */}
       </BaseLayout>
     )
   },
