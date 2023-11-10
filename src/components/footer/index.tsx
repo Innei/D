@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+
 import { configs } from '../../configs'
 
 export const Footer = defineComponent({
@@ -8,7 +9,7 @@ export const Footer = defineComponent({
       return (
         <footer
           class={
-            'text-text-gray font-serif text-xs pb-6 block text-center space-y-3'
+            'block space-y-3 pb-6 text-center font-serif text-xs text-gray-400'
           }
         >
           <p>

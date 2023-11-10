@@ -6,15 +6,14 @@
   </router-view>
 </template>
 
-<script lang="ts">
-import { defineComponent, onActivated } from 'vue'
-import { configs } from './configs'
+<script lang="ts" setup>
+import { onActivated } from 'vue'
 
-export default defineComponent({
-  setup() {
-    onActivated(() => {
-      document.title = `${configs.title} | ${configs.subtitle}`
-    })
-  },
+import { configs } from './configs'
+import { useSyncStore } from './store'
+
+useSyncStore().buildCollection()
+onActivated(() => {
+  document.title = `${configs.title} | ${configs.subtitle}`
 })
 </script>

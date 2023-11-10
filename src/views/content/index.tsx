@@ -1,8 +1,11 @@
-import { NoteModel } from '@mx-space/api-client'
 import BaseLayout from 'layouts/base.vue'
-import { client } from 'utils/client'
+import Markdown from 'markdown-to-jsx-vue3'
+import { useNoteDetail } from 'store'
+import { apiClient } from 'utils/client'
 import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import type { NoteModel } from '@mx-space/api-client'
+
 import { configs } from '../../configs'
 
 customElements.define(
@@ -90,9 +93,9 @@ export const NoteContentView = defineComponent({
     onMounted(async () => {
       loading.value = true
       try {
-        data.note = (await client.note.getNoteById(nid)).data
-        document.title = data.note.title + ' | ' + configs.title
-        const json = await client.proxy.markdown.render
+        data.note = (await apiClient.note.getNoteById(nid)).data
+        document.title = `${data.note.title} | ${configs.title}`
+        const json = await apiClient.proxy.markdown.render
           .structure(data.note.id)
           .get<any>({ params: { theme: 'github' } })
 
@@ -104,25 +107,39 @@ export const NoteContentView = defineComponent({
       }
     })
 
-    return () => (
-      <BaseLayout>
-        {data.note.id && loading.value ? (
-          <div id="html" class="content-wrapper">
-            Loading...
-          </div>
-        ) : (
-          <markdown-render
-            props={renderProps.value ? JSON.stringify(renderProps.value) : ''}
-          />
-        )}
+    const noteDetail = useNoteDetail(nid)
 
-        <p class={'text-right mt-12 text-sm'}>
-          去原文地址获得更好阅读体验：{' '}
-          <a href={configs.previewHost + '/notes/' + data.note.nid}>
-            {configs.previewHost + '/notes/' + data.note.nid}
-          </a>
-        </p>
-      </BaseLayout>
-    )
+    return () => {
+      if (noteDetail) {
+        return (
+          <BaseLayout>
+            <div class={'prose !max-w-max'}>
+              <h1>{noteDetail.title}</h1>
+              <Markdown>{noteDetail.text}</Markdown>
+            </div>
+          </BaseLayout>
+        )
+      }
+      return (
+        <BaseLayout>
+          {data.note.id && loading.value ? (
+            <div id="html" class="content-wrapper">
+              Loading...
+            </div>
+          ) : (
+            <markdown-render
+              props={renderProps.value ? JSON.stringify(renderProps.value) : ''}
+            />
+          )}
+
+          <p class={'mt-12 text-right text-sm'}>
+            去原文地址获得更好阅读体验：{' '}
+            <a href={`${configs.previewHost}/notes/${data.note.nid}`}>
+              {`${configs.previewHost}/notes/${data.note.nid}`}
+            </a>
+          </p>
+        </BaseLayout>
+      )
+    }
   },
 })

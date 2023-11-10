@@ -6,9 +6,9 @@
 
 html,
 body {
-  font-family: 'Crimson Text', Noto Serif SC;
-
-  @apply bg-backcolor;
+  font-family:
+    'Crimson Text',
+    Noto Serif SC;
 }
 
 body {
@@ -35,7 +35,7 @@ article {
   & h2,
   & h3,
   & h4 {
-    @apply text-xl font-light my-4;
+    @apply my-4 text-xl font-light;
 
     &::before {
       content: '# ';
@@ -49,7 +49,11 @@ article {
   }
 
   & blockquote {
-    font-family: Han Kaiti GB, Kaiti SC, cursive, serif;
+    font-family:
+      Han Kaiti GB,
+      Kaiti SC,
+      cursive,
+      serif;
     margin: 0px;
     border-left: 0.2rem solid rgb(119, 119, 119);
     color: rgb(119, 119, 119);
@@ -65,7 +69,7 @@ article {
   }
 
   & li {
-    @apply list-disc my-2;
+    @apply my-2 list-disc;
   }
 
   & del.spoiler {

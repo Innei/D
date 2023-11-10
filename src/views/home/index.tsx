@@ -1,10 +1,11 @@
-import { NoteModel, Pager } from '@mx-space/api-client'
 import { NoteList } from 'components/list'
 import { configs } from 'configs'
 import BaseLayout from 'layouts/base.vue'
-import { client } from 'utils/client'
+import { apiClient } from 'utils/client'
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import type { NoteModel, Pager } from '@mx-space/api-client'
+
 import './index.css'
 
 export const HomeView = defineComponent({
@@ -27,7 +28,7 @@ export const HomeView = defineComponent({
     })
 
     const fetchData = async (page = 1, size = 15) => {
-      const payload = await client.note.getList(page, size)
+      const payload = await apiClient.note.getList(page, size)
       data.notes = payload.data
 
       data.pager = payload.pagination
