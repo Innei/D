@@ -1,13 +1,12 @@
-import { liveQuery } from 'dexie'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { apiClient } from 'utils/client'
-import { onBeforeMount, ref, watch } from 'vue'
+import { computed, onBeforeMount, ref, watch } from 'vue'
 import type { NoteModel } from '@mx-space/api-client'
+import type { Ref } from 'vue'
 import type { NoteRawModel } from '../models/db.raw'
 
-import { useObservable } from '@vueuse/rxjs'
-
-import { syncDb, useSyncStore } from './sync'
+import { getCurrentChecksum, syncDb, updateDocument } from './modules/sync/db'
+import { compareChecksum } from './modules/sync/helper'
 import { useTopicStore } from './topic'
 import { createCollectionActions } from './utils/helper'
 
@@ -39,18 +38,17 @@ export const useNoteStore = defineStore('note', {
       return apiClient.note.getNoteById(nid)
     },
 
-    ...createCollectionActions(),
+    ...createCollectionActions<NoteRawModel>(),
   },
 })
 
 export const useNoteDetail = (nid: number) => {
   const loadingRef = ref(true)
-  const dataRef = ref(null as NoteModel | null)
+  const dataRef = ref<NoteModel | null>(null)
+  const dbDataRef = computed(getNoteDetail)
 
   const noteStore = useNoteStore()
   const topicStore = useTopicStore()
-
-  dataRef.value = getNoteDetail()
 
   let promiseResolve: (value: NoteModel) => void
 
@@ -59,37 +57,44 @@ export const useNoteDetail = (nid: number) => {
   })
 
   watch(
-    () => useSyncStore().isReady,
-    (isReady) => {
-      if (isReady) {
-        dataRef.value = getNoteDetail()
-        loadingRef.value = false
+    () => dbDataRef.value,
+    async () => {
+      if (!dbDataRef.value) return
+
+      if (!dataRef.value) {
+        dataRef.value = dbDataRef.value
+        return
       }
+
+      const [checksum, currentChecksum] = await Promise.all([
+        compareChecksum('note', dbDataRef.value.id),
+        getCurrentChecksum(dbDataRef.value.id),
+      ])
+      if (checksum !== currentChecksum) {
+        console.log('data is outdate. updating')
+        updateDocument(dbDataRef.value.id, 'note')
+      } else {
+        dataRef.value = dbDataRef.value
+      }
+    },
+    {
+      immediate: true,
     },
   )
 
   onBeforeMount(() => {
-    if (!dataRef.value) {
+    if (!dbDataRef.value) {
       apiClient.note.getNoteById(nid).then((note) => {
-        if (!dataRef.value) {
+        if (!dbDataRef.value) {
           dataRef.value = note.data
           loadingRef.value = false
           promiseResolve(note.data)
         }
       })
     } else {
-      promiseResolve(dataRef.value)
+      promiseResolve(dbDataRef.value)
     }
   })
-
-  // TODO observe note update
-  // How to observe note update? deep watch note collection, that will be a performance issue
-  // watchEffect(() => {
-  //   const noteId = dataRef.value?.id
-  //   if (!noteId) return
-  //   const note = noteStore.collection.get(noteId)
-
-  // })
 
   function getNoteDetail() {
     const noteId = noteStore.getNidById(nid)
@@ -109,47 +114,32 @@ export const useNoteDetail = (nid: number) => {
   }
 }
 
-const useNoteDetailFromDb = (nid: number) => {
-  const laodingRef = ref(true)
-  const dataRef = useObservable<NoteModel>(
-    liveQuery(() => {
-      return syncDb.note
-        .where('nid')
-        .equals(nid)
-        .first()
-        .then(async (note) => {
-          const noteModal = { ...note } as NoteModel
-          if (note?.topicId) {
-            const topic = await syncDb.topic.get(note.topicId)
-            if (topic) {
-              noteModal.topic = topic
-            }
-          }
-
-          laodingRef.value = false
-          return noteModal as NoteModel
-        })
-    }) as any,
-  )
-  return {
-    dataRef,
-    laodingRef,
-  }
-}
-
-export const useNoteDetailNew = (nid: number) => {
-  const { dataRef, laodingRef } = useNoteDetailFromDb(nid)
-  if (!dataRef.value) {
-    console.log('remote db loading....')
-  }
-}
-
-export const useNoteList = (page = 1, size = 10) => {
+export const useNoteList = ({
+  pageRef,
+  sizeRef,
+}: {
+  pageRef: Ref<number>
+  sizeRef: Ref<number>
+}) => {
   const noteStore = useNoteStore()
-  return [...noteStore.collection.values()].slice(
-    (page - 1) * size,
-    page * size,
-  )
+  const totalSize = computed(() => noteStore.collection.size)
+  return computed(() => {
+    const page = pageRef.value
+    const size = sizeRef.value
+    return {
+      data: [...noteStore.sortByCreated()].slice(
+        (page - 1) * size,
+        page * size,
+      ),
+      pagination: {
+        hasNext: page * size < totalSize.value,
+        hasPrev: page > 1,
+        total: totalSize.value,
+        totalPage: Math.ceil(totalSize.value / size),
+        page,
+      },
+    }
+  })
 }
 
 if (import.meta.hot) {
@@ -157,3 +147,20 @@ if (import.meta.hot) {
     acceptHMRUpdate(useNoteStore, import.meta.hot)
   })
 }
+
+syncDb.note.hook('creating', (primaryKey, obj) => {
+  const noteStore = useNoteStore()
+
+  noteStore.collection.set(obj.id, obj)
+})
+
+syncDb.note.hook('updating', (modifications, primaryKey, obj) => {
+  const noteStore = useNoteStore()
+
+  noteStore.collection.set(obj.id, obj)
+})
+
+syncDb.note.hook('deleting', (primaryKey, obj) => {
+  const noteStore = useNoteStore()
+  noteStore.collection.delete(obj.id)
+})

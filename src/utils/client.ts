@@ -3,6 +3,7 @@ import { configs } from 'configs'
 import {
   createClient,
   NoteController,
+  PageController,
   PostController,
 } from '@mx-space/api-client'
 
@@ -36,5 +37,5 @@ const adapter: IRequestAdapter = {
 })
 
 export const apiClient = createClient(adapter)(configs.apiBase, {
-  controllers: [PostController, NoteController],
+  controllers: [PostController, NoteController, PageController],
 })
