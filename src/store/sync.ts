@@ -74,6 +74,8 @@ export const useSyncStore = defineStore('sync', {
           topicStore.add(topic)
         })
       })
+
+      this.isReady = true
     },
     async syncData() {},
     async buildCollection() {

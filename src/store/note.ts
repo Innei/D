@@ -1,10 +1,13 @@
+import { liveQuery } from 'dexie'
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { apiClient } from 'utils/client'
-import { reactive, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import type { NoteModel } from '@mx-space/api-client'
 import type { NoteRawModel } from '../models/db.raw'
 
-import { useSyncStore } from './sync'
+import { useObservable } from '@vueuse/rxjs'
+
+import { syncDb, useSyncStore } from './sync'
 import { useTopicStore } from './topic'
 import { createCollectionActions } from './utils/helper'
 
@@ -41,33 +44,106 @@ export const useNoteStore = defineStore('note', {
 })
 
 export const useNoteDetail = (nid: number) => {
-  const { isReady } = useSyncStore()
+  const loadingRef = ref(true)
+  const dataRef = ref(null as NoteModel | null)
 
-  if (!isReady) {
-    return null // TODO refetch remote
-  }
   const noteStore = useNoteStore()
+  const topicStore = useTopicStore()
 
-  const noteId = noteStore.getNidById(nid)
-  const note = noteStore.collection.get(noteId || '')
-  if (!note) return null
-  const noteRective = reactive({ ...note } as NoteModel)
-  if (note.topicId) {
-    noteRective.topic = useTopicStore().collection.get(note.topicId)
-    // watch
-  }
+  dataRef.value = getNoteDetail()
+
+  let promiseResolve: (value: NoteModel) => void
+
+  const notePromise = new Promise<NoteModel>((resolve) => {
+    promiseResolve = resolve
+  })
 
   watch(
-    () => note,
-    () => {
-      const newNote = noteStore.collection.get(noteId || '')
-      if (!newNote) return
-      Object.assign(noteRective, { ...newNote })
+    () => useSyncStore().isReady,
+    (isReady) => {
+      if (isReady) {
+        dataRef.value = getNoteDetail()
+        loadingRef.value = false
+      }
     },
   )
 
-  return noteRective
+  onBeforeMount(() => {
+    if (!dataRef.value) {
+      apiClient.note.getNoteById(nid).then((note) => {
+        if (!dataRef.value) {
+          dataRef.value = note.data
+          loadingRef.value = false
+          promiseResolve(note.data)
+        }
+      })
+    } else {
+      promiseResolve(dataRef.value)
+    }
+  })
+
+  // TODO observe note update
+  // How to observe note update? deep watch note collection, that will be a performance issue
+  // watchEffect(() => {
+  //   const noteId = dataRef.value?.id
+  //   if (!noteId) return
+  //   const note = noteStore.collection.get(noteId)
+
+  // })
+
+  function getNoteDetail() {
+    const noteId = noteStore.getNidById(nid)
+    const note = noteStore.collection.get(noteId || '')
+    if (!note) return null
+    const noteModel = { ...note } as NoteModel
+    if (note.topicId) {
+      noteModel.topic = topicStore.collection.get(note.topicId)
+    }
+    return noteModel
+  }
+
+  return {
+    dataRef,
+    loadingRef,
+    notePromise,
+  }
 }
+
+const useNoteDetailFromDb = (nid: number) => {
+  const laodingRef = ref(true)
+  const dataRef = useObservable<NoteModel>(
+    liveQuery(() => {
+      return syncDb.note
+        .where('nid')
+        .equals(nid)
+        .first()
+        .then(async (note) => {
+          const noteModal = { ...note } as NoteModel
+          if (note?.topicId) {
+            const topic = await syncDb.topic.get(note.topicId)
+            if (topic) {
+              noteModal.topic = topic
+            }
+          }
+
+          laodingRef.value = false
+          return noteModal as NoteModel
+        })
+    }) as any,
+  )
+  return {
+    dataRef,
+    laodingRef,
+  }
+}
+
+export const useNoteDetailNew = (nid: number) => {
+  const { dataRef, laodingRef } = useNoteDetailFromDb(nid)
+  if (!dataRef.value) {
+    console.log('remote db loading....')
+  }
+}
+
 export const useNoteList = (page = 1, size = 10) => {
   const noteStore = useNoteStore()
   return [...noteStore.collection.values()].slice(
