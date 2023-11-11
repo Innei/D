@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "@mx-space/api-client": "1.6.2",
+    "@vueuse/core": "10.6.0",
+    "@vueuse/rxjs": "10.6.0",
     "clsx": "2.0.0",
+    "dexie": "3.2.4",
+    "hash-wasm": "4.10.0",
     "markdown-to-jsx-vue3": "7.2.1-fork.1",
     "pinia": "^2.1.7",
     "qier-progress": "1.0.4",

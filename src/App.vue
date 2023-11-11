@@ -12,7 +12,7 @@ import { onActivated } from 'vue'
 import { configs } from './configs'
 import { useSyncStore } from './store'
 
-useSyncStore().buildCollection()
+useSyncStore().sync()
 onActivated(() => {
   document.title = `${configs.title} | ${configs.subtitle}`
 })

@@ -1,10 +1,14 @@
+import { liveQuery } from 'dexie'
 import BaseLayout from 'layouts/base.vue'
 import Markdown from 'markdown-to-jsx-vue3'
-import { useNoteDetail } from 'store'
+import { syncDb, useNoteDetail } from 'store'
 import { apiClient } from 'utils/client'
 import { defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import type { NoteModel } from '@mx-space/api-client'
+import type { NoteRawModel } from 'models/db.raw'
+
+import { useObservable } from '@vueuse/rxjs'
 
 import { configs } from '../../configs'
 
@@ -81,33 +85,45 @@ export const NoteContentView = defineComponent({
 
     const nid = parseInt(route.params.id as any)
 
-    const data = reactive({
-      note: {} as NoteModel,
-    })
     onUnmounted(() => {
       document.title = `${configs.title} | ${configs.subtitle}`
     })
 
     const loading = ref(false)
     const renderProps = ref<any>()
-    onMounted(async () => {
-      loading.value = true
-      try {
-        data.note = (await apiClient.note.getNoteById(nid)).data
-        document.title = `${data.note.title} | ${configs.title}`
-        const json = await apiClient.proxy.markdown.render
-          .structure(data.note.id)
-          .get<any>({ params: { theme: 'github' } })
 
-        renderProps.value = json
-      } catch (e) {
-        console.error(e)
-      } finally {
-        loading.value = false
+    const noteDetail = useNoteDetail(nid)
+
+    const data = reactive({
+      note: {} as NoteModel,
+    })
+
+    onMounted(async () => {
+      if (!noteDetail) {
+        loading.value = true
+        try {
+          data.note = (await apiClient.note.getNoteById(nid)).data
+          document.title = `${data.note.title} | ${configs.title}`
+          const json = await apiClient.proxy.markdown.render
+            .structure(data.note.id)
+            .get<any>({ params: { theme: 'github' } })
+
+          renderProps.value = json
+        } catch (e) {
+          console.error(e)
+        } finally {
+          loading.value = false
+        }
+      } else {
+        document.title = `${noteDetail.title} | ${configs.title}`
       }
     })
 
-    const noteDetail = useNoteDetail(nid)
+    const ob = useObservable<NoteRawModel[]>(
+      liveQuery(() => {
+        return syncDb.note.toArray()
+      }) as any,
+    )
 
     return () => {
       if (noteDetail) {
