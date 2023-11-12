@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@mx-space/api-client": "1.6.2",
+    "@tanstack/vue-query": "5.8.1",
     "@vueuse/core": "10.6.0",
     "@vueuse/rxjs": "10.6.0",
     "clsx": "2.0.0",

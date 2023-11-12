@@ -25,7 +25,7 @@ export function createCollectionActions<
     },
 
     sortByCreated(this: ThisType) {
-      return [...this.collection.values()].sort((a, b) => {
+      return [...this.collection.values()].sort((b, a) => {
         const leftCreated = a.__created || new Date(a.created)
         const rightCreated = b.__created || new Date(b.created)
         return leftCreated.getTime() - rightCreated.getTime()

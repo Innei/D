@@ -46,6 +46,7 @@ export const pourToDb = (data: SyncCollectionData) => {
     checksum: data.checksum,
     type: data.type,
   })
+
   syncDb[data.type].put(data.data as any)
 }
 

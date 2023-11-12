@@ -1,9 +1,11 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { apiClient } from 'utils/client'
-import { computed, onBeforeMount, ref, watch } from 'vue'
-import type { NoteModel } from '@mx-space/api-client'
+import { computed, onBeforeMount, ref, unref, watch } from 'vue'
+import type { NoteModel, PaginateResult } from '@mx-space/api-client'
 import type { Ref } from 'vue'
 import type { NoteRawModel } from '../models/db.raw'
+
+import { useQuery } from '@tanstack/vue-query'
 
 import { getCurrentChecksum, syncDb, updateDocument } from './modules/sync/db'
 import { compareChecksum } from './modules/sync/helper'
@@ -57,13 +59,12 @@ export const useNoteDetail = (nid: number) => {
   })
 
   watch(
-    () => dbDataRef.value,
+    () => dbDataRef.value?.id,
     async () => {
       if (!dbDataRef.value) return
 
       if (!dataRef.value) {
-        dataRef.value = dbDataRef.value
-        return
+        dataRef.value = unref(dbDataRef)
       }
 
       const [checksum, currentChecksum] = await Promise.all([
@@ -71,10 +72,14 @@ export const useNoteDetail = (nid: number) => {
         getCurrentChecksum(dbDataRef.value.id),
       ])
       if (checksum !== currentChecksum) {
-        console.log('data is outdate. updating')
+        console.log(
+          'data is outdate. updating',
+          `currentChecksum: ${currentChecksum}`,
+          `remote: ${checksum}`,
+        )
         updateDocument(dbDataRef.value.id, 'note')
       } else {
-        dataRef.value = dbDataRef.value
+        dataRef.value = unref(dbDataRef)
       }
     },
     {
@@ -122,8 +127,20 @@ export const useNoteList = ({
   sizeRef: Ref<number>
 }) => {
   const noteStore = useNoteStore()
+
+  const { data: remoteData, isLoading } = useQuery({
+    queryKey: ['note', pageRef, sizeRef],
+    queryFn: async () => {
+      const data = await apiClient.note.getList(pageRef.value, sizeRef.value)
+      return data
+    },
+  })
+
   const totalSize = computed(() => noteStore.collection.size)
-  return computed(() => {
+  return computed<PaginateResult<NoteModel>>(() => {
+    if (!isLoading.value && remoteData.value) {
+      return remoteData.value
+    }
     const page = pageRef.value
     const size = sizeRef.value
     return {
@@ -132,11 +149,13 @@ export const useNoteList = ({
         page * size,
       ),
       pagination: {
-        hasNext: page * size < totalSize.value,
-        hasPrev: page > 1,
+        hasNextPage: page * size < totalSize.value,
+        hasPrevPage: page > 1,
         total: totalSize.value,
         totalPage: Math.ceil(totalSize.value / size),
+        size,
         page,
+        currentPage: page,
       },
     }
   })

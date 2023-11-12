@@ -59,7 +59,9 @@ export const useSyncStore = defineStore('sync', {
         | SyncCollectionData
         | { deleted: { type: SyncableCollectionName; id: string }[] }
       >({
-        endpoint: `/sync/delta?lastSyncedAt=${new Date().toISOString()}`,
+        endpoint: `/sync/delta?lastSyncedAt=${new Date(
+          lastSyncTime.value,
+        ).toISOString()}`,
         onData(data) {
           if ('deleted' in data) {
             const { deleted } = data

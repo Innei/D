@@ -45,12 +45,12 @@ export const NoteList = defineComponent({
           </ul>
           <div class={'pager'}>
             <div
-              class={clsx('prev', !pagination.hasPrev && 'disable')}
+              class={clsx('prev', !pagination.hasPrevPage && 'disable')}
               onClick={() => {
                 router.push({
                   query: {
                     ...route.query,
-                    page: pagination.page - 1,
+                    page: pagination.currentPage - 1,
                   },
                 })
               }}
@@ -58,12 +58,12 @@ export const NoteList = defineComponent({
               上一页
             </div>
             <div
-              class={clsx('next', !pagination.hasNext && 'disable')}
+              class={clsx('next', !pagination.hasNextPage && 'disable')}
               onClick={() => {
                 router.push({
                   query: {
                     ...route.query,
-                    page: pagination.page + 1,
+                    page: pagination.currentPage + 1,
                   },
                 })
               }}
