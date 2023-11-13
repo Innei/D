@@ -25,7 +25,9 @@
   "devDependencies": {
     "@innei/eslint-config-ts": "0.11.1",
     "@innei/prettier": "0.11.1",
+    "@unocss/eslint-config": "0.57.3",
     "@unocss/postcss": "0.57.3",
+    "@unocss/preset-attributify": "0.57.3",
     "@vitejs/plugin-vue": "4.4.1",
     "@vue/compiler-sfc": "^3.3.8",
     "@vue/eslint-config-typescript": "^12.0.0",
