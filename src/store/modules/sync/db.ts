@@ -11,6 +11,8 @@ import type {
 import type { SyncableCollectionName } from './constants'
 import type { SyncCollectionData } from './types'
 
+import { useQueryClient } from '@tanstack/vue-query'
+
 import { SYNC_DB_NAME } from './constants'
 
 export class SchemadDexie extends Dexie {
@@ -58,14 +60,20 @@ export const updateDocument = async (
   id: string,
   type: SyncableCollectionName,
 ) => {
-  const data = await fetch(
-    `${apiClient.proxy.sync.item.toString(true)}?${new URLSearchParams({
-      id,
-      type,
-    }).toString()}`,
-  )
-    .then((res) => res.text())
-    .then((text) => JSON.parse(text) as SyncCollectionData)
+  const queryClient = useQueryClient()
+  const data = await queryClient.fetchQuery({
+    queryKey: ['sync-item', type, id],
+    queryFn: async () => {
+      const res = await fetch(
+        `${apiClient.proxy.sync.item.toString(true)}?${new URLSearchParams({
+          id,
+          type,
+        }).toString()}`,
+      )
+      const text = await res.text()
+      return JSON.parse(text) as SyncCollectionData
+    },
+  })
 
   if (!data) return
   pourToDb(data)

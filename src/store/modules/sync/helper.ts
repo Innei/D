@@ -1,6 +1,8 @@
 import { apiClient } from 'utils/client'
 import type { SyncCollectionData } from './types'
 
+import { useQueryClient } from '@tanstack/vue-query'
+
 export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
   endpoint,
   onData,
@@ -58,13 +60,19 @@ export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
 }
 
 export const compareChecksum = async (type: string, refId: string) => {
-  const checksum = await fetch(
-    `${apiClient.proxy.sync.checksum.toString(true)}?${new URLSearchParams({
-      type,
-      id: refId,
-    }).toString()}`,
-    {},
-  ).then((res) => res.text())
+  const queryClient = useQueryClient()
 
-  return checksum
+  return queryClient.fetchQuery({
+    queryKey: ['sync', 'checksum', type, refId],
+    queryFn: async () => {
+      const checksum = await fetch(
+        `${apiClient.proxy.sync.checksum.toString(true)}?${new URLSearchParams({
+          type,
+          id: refId,
+        }).toString()}`,
+        {},
+      ).then((res) => res.text())
+      return checksum
+    },
+  })
 }
