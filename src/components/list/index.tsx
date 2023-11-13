@@ -1,5 +1,7 @@
-import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent, ref, watchEffect, withDirectives } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
+
+import { MotionDirective } from '@vueuse/motion'
 
 import './index.css'
 
@@ -16,7 +18,7 @@ export const NoteList = defineComponent({
 
     watchEffect(() => {
       pageRef.value = Number(route.query.page) || 1
-      sizeRef.value = Number(route.query.size) || 10
+      sizeRef.value = Number(route.query.size) || 15
     })
 
     const noteList = useNoteList({
@@ -29,16 +31,38 @@ export const NoteList = defineComponent({
       return (
         <>
           <ul class={'list-root'}>
-            {data.map((note) => {
+            {data.map((note, i) => {
               const created = new Date(note.created)
               const day = created.getDate()
               const month = created.getMonth() + 1
               return (
                 <li key={note.nid}>
-                  <RouterLink to={`/notes/${note.nid}`}>
-                    <span class={'title'}>{note.title}</span>
-                    <span class={'created'}>{`${month}/${day}`}</span>
-                  </RouterLink>
+                  {withDirectives(
+                    <RouterLink
+                      class={'inline-block'}
+                      to={`/notes/${note.nid}`}
+                    >
+                      <span class={'title'}>{note.title}</span>
+                      <span class={'created'}>{`${month}/${day}`}</span>
+                    </RouterLink>,
+                    [
+                      [
+                        MotionDirective({
+                          initial: { opacity: 0.011, y: 50 },
+                          enter: {
+                            opacity: 1,
+                            y: 0,
+                            transition: {
+                              duration: 300,
+                              delay: i * 50,
+                              type: 'spring',
+                              stiffness: '100',
+                            },
+                          },
+                        }),
+                      ],
+                    ],
+                  )}
                 </li>
               )
             })}
