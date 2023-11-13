@@ -11,8 +11,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Header } from '../components/header'
-import { Footer } from '../components/footer'
+
+import { Footer } from '../components/layout/footer'
+import { Header } from '../components/layout/header'
+
 export default defineComponent({
   components: {
     Header: Header,

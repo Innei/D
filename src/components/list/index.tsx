@@ -6,7 +6,8 @@ import { MotionDirective } from '@vueuse/motion'
 import './index.css'
 
 import clsx from 'clsx'
-import { useNoteList } from 'store'
+
+import { useNoteList } from '@/store'
 
 export const NoteList = defineComponent({
   setup() {

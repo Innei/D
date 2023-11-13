@@ -1,6 +1,7 @@
-import { NoteList } from 'components/list'
-import BaseLayout from 'layouts/base.vue'
 import { defineComponent } from 'vue'
+
+import { NoteList } from '@/components/list'
+import BaseLayout from '@/layouts/base.vue'
 
 import './index.css'
 

@@ -9,6 +9,8 @@
 <script lang="ts" setup>
 import { onActivated } from 'vue'
 
+import { useDark, useToggle } from '@vueuse/core'
+
 import { configs } from './configs'
 import { useSyncStore } from './store'
 

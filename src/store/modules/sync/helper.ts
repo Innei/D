@@ -1,6 +1,6 @@
-import { apiClient } from 'utils/client'
 import type { SyncCollectionData } from './types'
 
+import { apiClient } from '@/utils/client'
 import { useQueryClient } from '@tanstack/vue-query'
 
 export async function downloadDataAsStream<ResponseType = SyncCollectionData>({

@@ -1,8 +1,9 @@
-import BaseLayout from 'layouts/base.vue'
 import Markdown from 'markdown-to-jsx-vue3'
-import { useNoteDetail } from 'store'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+
+import BaseLayout from '@/layouts/base.vue'
+import { useNoteDetail } from '@/store'
 
 import { configs } from '../../configs'
 

@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 
-import { configs } from '../../configs'
+import { configs } from '../../../configs'
 
 export const Footer = defineComponent({
   setup() {

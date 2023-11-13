@@ -1,10 +1,10 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { apiClient } from 'utils/client'
 import { computed, onBeforeMount, ref, unref, watch } from 'vue'
 import type { NoteModel, PaginateResult } from '@mx-space/api-client'
 import type { Ref } from 'vue'
 import type { NoteRawModel } from '../models/db.raw'
 
+import { apiClient } from '@/utils/client'
 import { useQuery } from '@tanstack/vue-query'
 
 import { getCurrentChecksum, syncDb, updateDocument } from './modules/sync/db'

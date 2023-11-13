@@ -1,5 +1,7 @@
 // uno.config.ts
 
+import { theme } from './theme'
+
 import {
   defineConfig,
   presetAttributify,
@@ -9,13 +11,20 @@ import {
   presetWebFonts,
   presetWind,
   transformerAttributifyJsx,
+  transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
-  transformers: [transformerAttributifyJsx()],
+  transformers: [
+    transformerAttributifyJsx(),
+    transformerVariantGroup(),
+    transformerDirectives(),
+  ],
   content: {
     filesystem: ['./src/**/*.{html,js,ts,jsx,tsx,vue,svelte,astro}'],
   },
+  theme,
   presets: [
     presetUno(),
     presetAttributify(),

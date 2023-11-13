@@ -26,6 +26,9 @@ dependencies:
   clsx:
     specifier: 2.0.0
     version: 2.0.0
+  colord:
+    specifier: 2.9.3
+    version: 2.9.3
   dexie:
     specifier: 3.2.4
     version: 3.2.4
@@ -49,6 +52,9 @@ dependencies:
     version: 4.2.5(vue@3.3.8)
 
 devDependencies:
+  '@iconify-json/mingcute':
+    specifier: 1.1.11
+    version: 1.1.11
   '@innei/eslint-config-ts':
     specifier: 0.11.1
     version: 0.11.1(typescript@5.2.2)
@@ -1119,6 +1125,12 @@ packages:
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@iconify-json/mingcute@1.1.11:
+    resolution: {integrity: sha512-LHPhOVVWgC3QzTfkifWAzn/fdw6VM3V8R9XtQ+pl2+znKto5PUKDeTsO8V8rtxXaaSUcuEd5LePIC6J5eqMarA==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types@2.0.0:
@@ -2430,7 +2442,6 @@ packages:
 
   /colord@2.9.3:
     resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
-    dev: true
 
   /colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}

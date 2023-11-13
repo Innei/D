@@ -1,5 +1,7 @@
-import { BaseLayout } from 'layouts'
 import { defineComponent } from 'vue'
+
+import { BaseLayout } from '@/layouts'
+
 import './index.css'
 
 export const AboutView = defineComponent({

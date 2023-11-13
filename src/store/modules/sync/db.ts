@@ -1,5 +1,4 @@
 import Dexie from 'dexie'
-import { apiClient } from 'utils/client'
 import type { Table } from 'dexie'
 import type {
   CategoryRawModel,
@@ -11,6 +10,7 @@ import type {
 import type { SyncableCollectionName } from './constants'
 import type { SyncCollectionData } from './types'
 
+import { apiClient } from '@/utils/client'
 import { useQueryClient } from '@tanstack/vue-query'
 
 import { SYNC_DB_NAME } from './constants'
