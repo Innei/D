@@ -9,7 +9,7 @@ import { useNoteList } from '@/store'
 import { ellipsis } from '@/utils/text'
 import { MotionDirective } from '@vueuse/motion'
 
-import { RelativeTime } from '../ui/relative-time'
+import { RelativeTime } from '../../../components/ui/relative-time'
 
 export const NoteList = defineComponent({
   setup() {

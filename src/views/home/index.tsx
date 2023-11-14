@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 
-import { NoteList } from '@/components/list'
-import BaseLayout from '@/layouts/base.vue'
+import { BaseLayout } from '@/layouts'
+import { NoteList } from '@/modules/notes/list'
 
 export const HomeView = defineComponent({
   setup() {

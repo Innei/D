@@ -59,4 +59,3 @@ router.afterEach(() => {
 router.onError(() => {
   qprogress.finish()
 })
-export default router

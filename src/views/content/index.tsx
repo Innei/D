@@ -2,7 +2,7 @@ import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { Markdown } from '@/components/ui/markdown'
-import BaseLayout from '@/layouts/base.vue'
+import { BaseLayout } from '@/layouts'
 import { useNoteDetail } from '@/store'
 
 import { configs } from '../../configs'

@@ -38,14 +38,18 @@ export const ContainerRule: Rule = {
     switch (name) {
       case 'carousel':
       case 'gallery': {
-        return pickImagesFromMarkdown(content).map((image) => (
-          <img
-            src={image.url}
-            alt={image.name}
-            title={image.footnote}
-            class="w-full"
-          />
-        ))
+        return (
+          <div class={'flex flex-col gap-4'}>
+            {pickImagesFromMarkdown(content).map((image) => (
+              <img
+                src={image.url}
+                alt={image.name}
+                title={image.footnote}
+                class="w-full"
+              />
+            ))}
+          </div>
+        )
       }
       case 'warn':
       case 'error':

@@ -108,7 +108,7 @@ article {
 }
 ::-webkit-scrollbar-thumb,
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-500;
+  @apply bg-neutral-900/80 dark:bg-neutral-600/90;
 
   background-clip: padding-box;
   border: 3px solid transparent;

@@ -14,9 +14,9 @@ export default defineConfig({
 
   base: '',
   esbuild: {
-    jsxFactory: 'h',
+    jsxFactory: '__h',
     jsxFragment: 'Fragment',
-    jsxInject: 'import {h, Fragment} from "vue"',
+    jsxInject: 'import {h as __h, Fragment} from "vue"',
   },
   resolve: {
     alias: {

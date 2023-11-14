@@ -8,7 +8,9 @@ export const Footer = defineComponent({
       const y = new Date().getFullYear()
       return (
         <footer
-          class={'block space-y-3 pb-6 text-center text-xs text-gray-400'}
+          class={
+            'block space-y-3 pb-6 text-center text-xs opacity-60 text-slate-800 dark:text-slate-300'
+          }
         >
           <p>
             Copyright © {y} <a href={configs.website}>Innei</a>. Powered by Vue
