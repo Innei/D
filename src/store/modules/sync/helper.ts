@@ -1,7 +1,7 @@
 import type { SyncCollectionData } from './types'
 
 import { apiClient } from '@/utils/client'
-import { useQueryClient } from '@tanstack/vue-query'
+import { queryClient } from '@/utils/query'
 
 export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
   endpoint,
@@ -60,8 +60,6 @@ export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
 }
 
 export const compareChecksum = async (type: string, refId: string) => {
-  const queryClient = useQueryClient()
-
   return queryClient.fetchQuery({
     queryKey: ['sync', 'checksum', type, refId],
     queryFn: async () => {

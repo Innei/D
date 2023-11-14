@@ -7,6 +7,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@headlessui/vue": "1.7.16",
     "@mx-space/api-client": "1.6.2",
     "@tanstack/vue-query": "5.8.1",
     "@unocss/reset": "0.57.3",

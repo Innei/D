@@ -116,7 +116,7 @@ const NoteItem = defineComponent({
                   </div>
                   <span
                     class={
-                      'ml-4 text-sm text-opacity-[0.85] flex-shrink-0 tabular-nums'
+                      'ml-4 text-sm text-opacity-[0.85] flex-shrink-0 tabular-nums text-xs'
                     }
                   >
                     <RelativeTime
@@ -125,7 +125,11 @@ const NoteItem = defineComponent({
                     />
                   </span>
                 </div>
-                <p class={'text-black/80 text-sm leading-[1.8]'}>
+                <p
+                  class={
+                    'text-black/80 dark:text-white/90 text-sm leading-[1.8]'
+                  }
+                >
                   {ellipsis(RemoveMarkdown(note.text), 120)}
                 </p>
               </div>

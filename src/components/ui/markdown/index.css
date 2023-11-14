@@ -1,0 +1,19 @@
+.prose {
+  & .spoiler {
+    position: relative;
+
+    transition: background 0.5s;
+    text-decoration: none;
+    border-radius: 3px;
+
+    @apply bg-current text-stone-700 dark:text-neutral-500 print:!bg-transparent print:line-through;
+
+    &:hover {
+      background: transparent;
+    }
+
+    &:not(:hover) * {
+      @apply !text-inherit;
+    }
+  }
+}

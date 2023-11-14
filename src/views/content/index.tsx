@@ -1,7 +1,7 @@
-import Markdown from 'markdown-to-jsx-vue3'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
+import { Markdown } from '@/components/ui/markdown'
 import BaseLayout from '@/layouts/base.vue'
 import { useNoteDetail } from '@/store'
 
@@ -35,6 +35,7 @@ export const NoteContentView = defineComponent({
             <>
               <div class={'prose !max-w-max'}>
                 <h1>{data.title}</h1>
+                <hr class={'my-4'} />
                 <Markdown>{data.text}</Markdown>
               </div>
 

@@ -11,7 +11,7 @@ import type { SyncableCollectionName } from './constants'
 import type { SyncCollectionData } from './types'
 
 import { apiClient } from '@/utils/client'
-import { useQueryClient } from '@tanstack/vue-query'
+import { queryClient } from '@/utils/query'
 
 import { SYNC_DB_NAME } from './constants'
 
@@ -60,7 +60,6 @@ export const updateDocument = async (
   id: string,
   type: SyncableCollectionName,
 ) => {
-  const queryClient = useQueryClient()
   const data = await queryClient.fetchQuery({
     queryKey: ['sync-item', type, id],
     queryFn: async () => {
