@@ -16,7 +16,7 @@ export const Header = defineComponent({
       <header class="my-8 flex items-center justify-between">
         <RouterLink to={'/'}>
           <h1 class="relative m-0 cursor-pointer">
-            {configs.title}
+            <span class={'text-lg font-medium'}>{configs.title}</span>
             <small
               class={clsx(
                 "absolute left-0 -bottom-5 m-0 whitespace-nowrap text-right font-['Heiti_SC'] text-sm text-gray-400 dark:text-gray-500",
@@ -34,13 +34,7 @@ export const Header = defineComponent({
               toggleDark()
             }}
           >
-            <Transition
-              // name="rotate"
-              enterFromClass="rotate-enter-from"
-              enterActiveClass="rotate-enter-active"
-              leaveActiveClass="rotate-leave-active"
-              leaveToClass="rotate-leave-to"
-            >
+            <Transition name="rotate">
               {!isDark.value ? (
                 <i
                   key={'sun'}

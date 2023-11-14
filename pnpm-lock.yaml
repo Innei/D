@@ -29,6 +29,9 @@ dependencies:
   colord:
     specifier: 2.9.3
     version: 2.9.3
+  dayjs:
+    specifier: 1.11.10
+    version: 1.11.10
   dexie:
     specifier: 3.2.4
     version: 3.2.4
@@ -44,6 +47,9 @@ dependencies:
   qier-progress:
     specifier: 1.0.4
     version: 1.0.4
+  remove-markdown:
+    specifier: 0.5.0
+    version: 0.5.0
   vue:
     specifier: 3.3.8
     version: 3.3.8(typescript@5.2.2)
@@ -61,6 +67,9 @@ devDependencies:
   '@innei/prettier':
     specifier: 0.11.1
     version: 0.11.1(@vue/compiler-sfc@3.3.8)
+  '@types/remove-markdown':
+    specifier: 0.3.4
+    version: 0.3.4
   '@unocss/eslint-config':
     specifier: 0.57.3
     version: 0.57.3(eslint@8.53.0)(typescript@5.2.2)
@@ -1372,6 +1381,10 @@ packages:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
     dev: true
 
+  /@types/remove-markdown@0.3.4:
+    resolution: {integrity: sha512-i753EH/p02bw7bLlpfS/4CV1rdikbGiLabWyVsAvsFid3cA5RNU1frG7JycgY+NSnFwtoGlElvZVceCytecTDA==}
+    dev: true
+
   /@types/semver@7.5.5:
     resolution: {integrity: sha512-+d+WYC1BxJ6yVOgUgzK8gWvp5qF8ssV5r4nsDcZWKRWcDQLQ619tvWAxJQYGgBrO1MnLJC7a5GtiYsAoQ47dJg==}
     dev: true
@@ -2562,6 +2575,10 @@ packages:
     transitivePeerDependencies:
       - ts-node
     dev: true
+
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+    dev: false
 
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -4890,6 +4907,10 @@ packages:
 
   /remove-accents@0.4.2:
     resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
+
+  /remove-markdown@0.5.0:
+    resolution: {integrity: sha512-x917M80K97K5IN1L8lUvFehsfhR8cYjGQ/yAMRI9E7JIKivtl5Emo5iD13DhMr+VojzMCiYk8V2byNPwT/oapg==}
     dev: false
 
   /resolve-from@4.0.0:

@@ -1,9 +1,15 @@
 import clsx from 'clsx'
+import RemoveMarkdown from 'remove-markdown'
 import { defineComponent, ref, watchEffect, withDirectives } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
+import type { NoteModel } from '@mx-space/api-client'
+import type { PropType } from 'vue'
 
 import { useNoteList } from '@/store'
+import { ellipsis } from '@/utils/text'
 import { MotionDirective } from '@vueuse/motion'
+
+import { RelativeTime } from '../ui/relative-time'
 
 export const NoteList = defineComponent({
   setup() {
@@ -15,7 +21,7 @@ export const NoteList = defineComponent({
 
     watchEffect(() => {
       pageRef.value = Number(route.query.page) || 1
-      sizeRef.value = Number(route.query.size) || 15
+      sizeRef.value = Number(route.query.size) || 10
     })
 
     const noteList = useNoteList({
@@ -29,46 +35,7 @@ export const NoteList = defineComponent({
         <>
           <ul class={'py-2 min-h-[500px]'}>
             {data.map((note, i) => {
-              const created = new Date(note.created)
-              const day = created.getDate()
-              const month = created.getMonth() + 1
-              return (
-                <li
-                  key={note.nid}
-                  class={
-                    'leading-[1.8] duration-150 transition-transform hover:(transform translate-x-4)'
-                  }
-                >
-                  {withDirectives(
-                    <RouterLink
-                      class={'inline-block'}
-                      to={`/notes/${note.nid}`}
-                    >
-                      <span class={'text-lg'}>{note.title}</span>
-                      <span
-                        class={'ml-4 text-sm text-opacity-[0.85]'}
-                      >{`${month}/${day}`}</span>
-                    </RouterLink>,
-                    [
-                      [
-                        MotionDirective({
-                          initial: { opacity: 0.011, y: 50 },
-                          enter: {
-                            opacity: 1,
-                            y: 0,
-                            transition: {
-                              duration: 300,
-                              delay: i * 50,
-                              type: 'spring',
-                              stiffness: '100',
-                            },
-                          },
-                        }),
-                      ],
-                    ],
-                  )}
-                </li>
-              )
+              return <NoteItem note={note} index={i} key={note.id} />
             })}
           </ul>
           <div
@@ -104,6 +71,74 @@ export const NoteList = defineComponent({
             </div>
           </div>
         </>
+      )
+    }
+  },
+})
+
+const NoteItem = defineComponent({
+  props: {
+    note: {
+      type: Object as PropType<NoteModel>,
+      required: true,
+    },
+    index: {
+      type: Number,
+      default: 0,
+    },
+  },
+  setup(props) {
+    return () => {
+      const note = props.note
+
+      return (
+        <li key={note.nid}>
+          {withDirectives(
+            <RouterLink
+              class={clsx(
+                'duration-150 transition-all rounded-lg block',
+                'p-3 -mx-3 hover:(bg-accent-500/10 cursor-pointer)',
+              )}
+              to={`/notes/${note.nid}`}
+            >
+              <div class={'flex flex-col gap-2'}>
+                <div class={'flex justify-between'}>
+                  <span class={'text-lg'}>{note.title}</span>
+                  <span
+                    class={
+                      'ml-4 text-sm text-opacity-[0.85] flex-shrink-0 tabular-nums'
+                    }
+                  >
+                    <RelativeTime
+                      date={note.created}
+                      displayAbsoluteTimeAfterDay={7}
+                    />
+                  </span>
+                </div>
+                <p class={'text-black/80 text-sm leading-[1.8]'}>
+                  {ellipsis(RemoveMarkdown(note.text), 120)}
+                </p>
+              </div>
+            </RouterLink>,
+            [
+              [
+                MotionDirective({
+                  initial: { opacity: 0.011, y: 50 },
+                  enter: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 300,
+                      delay: props.index * 50,
+                      type: 'spring',
+                      stiffness: '100',
+                    },
+                  },
+                }),
+              ],
+            ],
+          )}
+        </li>
       )
     }
   },

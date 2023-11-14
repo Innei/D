@@ -28,9 +28,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons({
-      autoInstall: true,
-    }),
+    presetIcons({}),
     presetTypography(),
     presetWebFonts({
       provider: 'google',
