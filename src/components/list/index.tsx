@@ -98,12 +98,22 @@ const NoteItem = defineComponent({
               class={clsx(
                 'duration-150 transition-all rounded-lg block',
                 'p-3 -mx-3 hover:(bg-accent-500/10 cursor-pointer)',
+                'group',
               )}
               to={`/notes/${note.nid}`}
             >
               <div class={'flex flex-col gap-2'}>
                 <div class={'flex justify-between'}>
-                  <span class={'text-lg'}>{note.title}</span>
+                  <div class={'flex gap-2 items-center'}>
+                    <span class={'text-lg'}>{note.title}</span>
+
+                    <span
+                      class={clsx(
+                        'i-mingcute-external-link-line text-xm group-hover:(opacity-100 translate-x-0) duration-200 transition-all opacity-0 translate-x-[-10px]',
+                        '!text-accent-600-darker/90',
+                      )}
+                    />
+                  </div>
                   <span
                     class={
                       'ml-4 text-sm text-opacity-[0.85] flex-shrink-0 tabular-nums'
