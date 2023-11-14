@@ -1,13 +1,13 @@
 import { defineComponent } from 'vue'
 
 import { BaseLayout } from '@/layouts'
-import { NoteList } from '@/modules/notes/list'
+import { HomeTabs } from '@/modules/home/tabs'
 
 export const HomeView = defineComponent({
   setup() {
     return () => (
       <BaseLayout>
-        <NoteList />
+        <HomeTabs />
       </BaseLayout>
     )
   },

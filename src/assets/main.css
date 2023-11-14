@@ -27,6 +27,8 @@ body {
 
 body {
   min-height: 100%;
+  margin-left: calc(100vw - 100%);
+
   @apply px-4;
   @apply bg-primary-500/5 dark:bg-neutral-900/90 dark:text-white;
 }
@@ -36,70 +38,6 @@ a {
 }
 a:hover {
   @apply text-opacity-[0.85];
-}
-
-article {
-  & h1:first-child {
-    &::before {
-      @apply hidden;
-    }
-  }
-  @apply break-all;
-  line-height: 1.5;
-  & h1,
-  & h2,
-  & h3,
-  & h4 {
-    @apply my-4 text-xl font-light;
-
-    &::before {
-      content: '# ';
-    }
-  }
-
-  & p {
-    @apply my-4;
-
-    text-indent: 2rem;
-  }
-
-  & blockquote {
-    font-family:
-      Han Kaiti GB,
-      Kaiti SC,
-      cursive,
-      serif;
-    margin: 0px;
-    border-left: 0.2rem solid rgb(119, 119, 119);
-    color: rgb(119, 119, 119);
-    padding-left: 1.8rem;
-
-    & > p {
-      text-indent: 0;
-    }
-  }
-
-  & img {
-    @apply max-w-full object-cover;
-  }
-
-  & li {
-    @apply my-2 list-disc;
-  }
-
-  & del.spoiler {
-    text-decoration: none;
-  }
-
-  & .spoiler {
-    position: relative;
-    background: currentColor;
-    transition: background 0.5s;
-  }
-
-  & .spoiler:hover {
-    background: transparent;
-  }
 }
 
 ::-webkit-scrollbar {

@@ -1,4 +1,4 @@
-import { defineComponent, h, KeepAlive, onActivated } from 'vue'
+import { defineComponent, KeepAlive, onActivated } from 'vue'
 import { RouterView } from 'vue-router'
 
 import { configs } from './configs'
@@ -15,9 +15,11 @@ export const App = defineComponent({
 
     return () => (
       <RouterView>
-        {({ Component }: { Component: any }) => (
-          <KeepAlive exclude={['note-view']}>{h(Component)}</KeepAlive>
-        )}
+        {{
+          default: ({ Component }: any) => {
+            return <KeepAlive exclude={['note-view']}>{Component}</KeepAlive>
+          },
+        }}
       </RouterView>
     )
   },
