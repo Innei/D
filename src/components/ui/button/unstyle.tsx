@@ -1,33 +1,23 @@
-import { defineComponent, withDirectives } from 'vue'
-
-import { MotionDirective } from '@vueuse/motion'
+import { defineComponent, ref } from 'vue'
+import type { PropType } from 'vue'
 
 export const UnstyledButton = defineComponent({
-  setup(_, { slots, attrs }) {
-    return () =>
-      withDirectives(
-        <button
-          class="p-0 m-0 cursor-pointer text-current dark:text-current"
-          {...attrs}
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-          }}
-        >
-          {slots.default?.()}
-        </button>,
-        [
-          [
-            MotionDirective({
-              tapped: {
-                scale: 0.95,
-                transition: {
-                  type: 'spring',
-                },
-              },
-            }),
-          ],
-        ],
-      )
+  props: {
+    onClick: {
+      type: Function as PropType<(payload: MouseEvent) => void>,
+    },
+  },
+  setup(props, { slots, attrs }) {
+    const target = ref<HTMLElement>()
+    return () => (
+      <button
+        ref={target}
+        class="p-0 m-0 cursor-pointer text-current dark:text-current"
+        {...attrs}
+        onClick={props.onClick}
+      >
+        {slots.default?.()}
+      </button>
+    )
   },
 })

@@ -1,13 +1,9 @@
+import clsx from 'clsx'
 import { defineComponent, ref, watchEffect, withDirectives } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 
-import { MotionDirective } from '@vueuse/motion'
-
-import './index.css'
-
-import clsx from 'clsx'
-
 import { useNoteList } from '@/store'
+import { MotionDirective } from '@vueuse/motion'
 
 export const NoteList = defineComponent({
   setup() {
@@ -31,20 +27,27 @@ export const NoteList = defineComponent({
       const { data, pagination } = noteList.value
       return (
         <>
-          <ul class={'list-root'}>
+          <ul class={'py-2 min-h-[500px]'}>
             {data.map((note, i) => {
               const created = new Date(note.created)
               const day = created.getDate()
               const month = created.getMonth() + 1
               return (
-                <li key={note.nid}>
+                <li
+                  key={note.nid}
+                  class={
+                    'leading-[1.8] duration-150 transition-transform hover:(transform translate-x-4)'
+                  }
+                >
                   {withDirectives(
                     <RouterLink
                       class={'inline-block'}
                       to={`/notes/${note.nid}`}
                     >
-                      <span class={'title'}>{note.title}</span>
-                      <span class={'created'}>{`${month}/${day}`}</span>
+                      <span class={'text-lg'}>{note.title}</span>
+                      <span
+                        class={'ml-4 text-sm text-opacity-[0.85]'}
+                      >{`${month}/${day}`}</span>
                     </RouterLink>,
                     [
                       [
@@ -68,7 +71,11 @@ export const NoteList = defineComponent({
               )
             })}
           </ul>
-          <div class={'pager'}>
+          <div
+            class={
+              'flex justify-between my-16 px-8 [&_div]:cursor-pointer [&_.disable]:(cursor-not-allowed text-gray-800 opacity-20)'
+            }
+          >
             <div
               class={clsx('prev', !pagination.hasPrevPage && 'disable')}
               onClick={() => {

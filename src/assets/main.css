@@ -19,7 +19,7 @@ body {
 body {
   min-height: 100%;
   @apply px-4;
-  @apply bg-primary-500/5 dark:bg-primary-900/10;
+  @apply bg-primary-500/5 dark:bg-neutral-900/90 dark:text-white;
 }
 
 a {
@@ -104,4 +104,15 @@ article {
   background-clip: padding-box;
   border: 3px solid transparent;
   border-radius: 5px;
+}
+
+.rotate-enter-active,
+.rotate-leave-active {
+  transition: transform 0.5s ease;
+  transform: rotate(0deg);
+}
+
+.rotate-enter-from,
+.rotate-leave-to {
+  transform: rotate(-90deg);
 }

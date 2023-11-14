@@ -1,7 +1,0 @@
-.pager {
-  @apply flex justify-between cursor-pointer my-16 px-8;
-
-  & .disable {
-    @apply cursor-not-allowed text-gray-800 opacity-20;
-  }
-}
