@@ -17,7 +17,7 @@ export const App = defineComponent({
       <RouterView>
         {{
           default: ({ Component }: any) => {
-            return <KeepAlive exclude={['note-view']}>{Component}</KeepAlive>
+            return <KeepAlive include={['home']}>{Component}</KeepAlive>
           },
         }}
       </RouterView>

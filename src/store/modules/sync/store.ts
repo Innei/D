@@ -3,6 +3,9 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { SyncableCollectionName } from './constants'
 import type { SyncCollectionData } from './types'
 
+import { useCategoryStore } from '@/store/category'
+import { usePageStore } from '@/store/page'
+import { usePostStore } from '@/store/post'
 import { useStorage } from '@vueuse/core'
 
 import { useNoteStore } from '../../note'
@@ -12,6 +15,16 @@ import { pourToDb, syncDb } from './db'
 import { downloadDataAsStream } from './helper'
 
 const lastSyncTime = useStorage('lastSyncTime', 0)
+
+const getStores = () => {
+  return {
+    note: useNoteStore(),
+    topic: useTopicStore(),
+    page: usePageStore(),
+    post: usePostStore(),
+    category: useCategoryStore(),
+  }
+}
 
 export const useSyncStore = defineStore('sync', {
   state: () => {
@@ -36,18 +49,13 @@ export const useSyncStore = defineStore('sync', {
       }
     },
     async pourDataIntoStore() {
-      const noteStore = useNoteStore()
-      await syncDb.note.toArray().then((notes) => {
-        notes.forEach((note) => {
-          noteStore.add(note)
+      for (const [type, store] of Object.entries(getStores())) {
+        const collection =
+          await syncDb[type as SyncableCollectionName].toArray()
+        collection.forEach((item) => {
+          ;(store as any).add(item)
         })
-      })
-      const topicStore = useTopicStore()
-      await syncDb.topic.toArray().then((topics) => {
-        topics.forEach((topic) => {
-          topicStore.add(topic)
-        })
-      })
+      }
 
       this.isReady = true
     },

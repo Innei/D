@@ -1,4 +1,5 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
 import type { PostModel } from '@mx-space/api-client'
 import type { PropType } from 'vue'
 
@@ -12,7 +13,11 @@ export const PostList = defineComponent({
     const pageRef = ref(1)
     const sizeRef = ref(10)
     const postList = usePostList({ pageRef, sizeRef })
-
+    const route = useRoute()
+    watchEffect(() => {
+      pageRef.value = Number(route.query.page) || 1
+      sizeRef.value = Number(route.query.size) || 10
+    })
     return () => {
       const { data, pagination } = postList.value
       return (
@@ -52,7 +57,7 @@ const PostItem = defineComponent({
         <ItemBase
           {...post}
           index={props.index}
-          to={`/category/${post.category.slug}/${post.slug}`}
+          to={`/posts/${post.category.slug}/${post.slug}`}
         />
       )
     }

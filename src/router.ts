@@ -4,8 +4,9 @@ import type { RouteRecordRaw } from 'vue-router'
 
 import { configs } from './configs'
 import { useSyncStore } from './store'
-import { NoteContentView } from './views/content'
 import { HomeView } from './views/home'
+import { NoteContentView } from './views/note-detail'
+import { PostContentView } from './views/post-detail'
 
 const qprogress = new QProgress()
 
@@ -31,6 +32,13 @@ const routes: RouteRecordRaw[] = [
         component: NoteContentView,
         meta: { title: '' },
         name: 'note',
+      },
+      {
+        path: '/posts/:category/:slug',
+        props: true,
+        component: PostContentView,
+        meta: { title: '' },
+        name: 'post',
       },
     ],
   },

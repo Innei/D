@@ -10,6 +10,16 @@ export const useCategoryStore = defineStore('category', {
       collection: new Map<string, CategoryRawModel>(),
     }
   },
+  getters: {
+    slugMap: (state) => {
+      return new Map(
+        [...state.collection.values()].map((category) => [
+          category.slug,
+          category,
+        ]),
+      )
+    },
+  },
   actions: {
     ...createCollectionActions(),
   },

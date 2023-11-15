@@ -1,8 +1,8 @@
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { Markdown } from '@/components/ui/markdown'
 import { BaseLayout } from '@/layouts'
+import { ArticleRender } from '@/modules/render/article'
 import { useNoteDetail } from '@/store'
 
 import { configs } from '../../configs'
@@ -20,7 +20,7 @@ export const NoteContentView = defineComponent({
 
     const noteDetail = useNoteDetail(nid)
 
-    const { dataRef, loadingRef, notePromise } = noteDetail
+    const { dataRef, notePromise } = noteDetail
     onMounted(async () => {
       notePromise.then((note) => {
         document.title = `${note.title} | ${configs.title}`
@@ -32,20 +32,10 @@ export const NoteContentView = defineComponent({
       return (
         <BaseLayout>
           {data ? (
-            <>
-              <div class={'prose !max-w-max'}>
-                <h1>{data.title}</h1>
-                <hr class={'my-4'} />
-                <Markdown>{data.text}</Markdown>
-              </div>
-
-              <p class={'mt-12 text-right text-sm'}>
-                去原文地址获得更好阅读体验：{' '}
-                <a href={`${configs.previewHost}/notes/${data.nid}`}>
-                  {`${configs.previewHost}/notes/${data.nid}`}
-                </a>
-              </p>
-            </>
+            <ArticleRender
+              {...data}
+              rawLink={`${configs.previewHost}/notes/${data.nid}`}
+            />
           ) : (
             <div>loading...</div>
           )}
