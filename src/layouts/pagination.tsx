@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { defineComponent, Fragment } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { Pager } from '@mx-space/api-client'
@@ -27,7 +26,7 @@ export const PaginationLayout = defineComponent({
             }
           >
             <div
-              class={clsx('prev', !pagination.hasPrevPage && 'disable')}
+              class={['prev', !pagination.hasPrevPage && 'disable']}
               onClick={() => {
                 router.push({
                   query: {
@@ -40,7 +39,7 @@ export const PaginationLayout = defineComponent({
               上一页
             </div>
             <div
-              class={clsx('next', !pagination.hasNextPage && 'disable')}
+              class={['next', !pagination.hasNextPage && 'disable']}
               onClick={() => {
                 router.push({
                   query: {

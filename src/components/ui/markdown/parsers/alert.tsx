@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { blockRegex, Priority } from 'markdown-to-jsx-vue3'
 import type { Rule } from 'markdown-to-jsx-vue3'
 
@@ -62,18 +61,18 @@ export const AlertsRule: Rule = {
 
     const Icon = typedIconMap[type] || typedIconMap.info
     return (
-      <blockquote class={clsx(borderColorMap[type], 'not-italic')}>
+      <blockquote class={[borderColorMap[type], 'not-italic']}>
         <span
-          class={clsx(
+          class={[
             'text-semibold mb-1 inline-flex items-center',
             textColorMap[type],
-          )}
+          ]}
         >
           <Icon
-            class={clsx(
+            class={[
               `flex-shrink-0 text-3xl md:mr-2 md:self-start md:text-left`,
               typedIconMap[type] || typedIconMap.info,
-            )}
+            ]}
           />
 
           {typePrefix}

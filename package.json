@@ -14,7 +14,7 @@
     "@vueuse/core": "10.6.0",
     "@vueuse/motion": "2.0.0",
     "@vueuse/rxjs": "10.6.0",
-    "clsx": "2.0.0",
+    "animated-unocss": "^0.0.6",
     "colord": "2.9.3",
     "dayjs": "1.11.10",
     "dexie": "3.2.4",

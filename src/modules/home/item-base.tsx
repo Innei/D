@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import RemoveMarkdown from 'remove-markdown'
 import { defineComponent, withDirectives } from 'vue'
 import { RouterLink } from 'vue-router'
@@ -39,11 +38,11 @@ export const ItemBase = defineComponent({
         <li>
           {withDirectives(
             <RouterLink
-              class={clsx(
+              class={[
                 'duration-150 transition-all rounded-lg block',
                 'p-3 -mx-3 hover:(bg-accent-500/10 cursor-pointer)',
                 'group',
-              )}
+              ]}
               to={props.to}
             >
               <div class={'flex flex-col gap-2'}>
@@ -52,10 +51,10 @@ export const ItemBase = defineComponent({
                     <span class={'text-lg'}>{props.title}</span>
 
                     <span
-                      class={clsx(
+                      class={[
                         'i-mingcute-external-link-line text-xm group-hover:(opacity-100 translate-x-0) duration-200 transition-all opacity-0 translate-x-[-10px]',
                         '!text-accent-600-darker/90',
-                      )}
+                      ]}
                     />
                   </div>
                   <span

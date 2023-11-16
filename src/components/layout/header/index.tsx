@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { defineComponent, Transition } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -18,10 +17,10 @@ export const Header = defineComponent({
           <h1 class="relative m-0 cursor-pointer">
             <span class={'text-lg font-medium'}>{configs.title}</span>
             <small
-              class={clsx(
+              class={[
                 "absolute left-0 -bottom-5 m-0 whitespace-nowrap text-right font-['Heiti_SC'] text-sm text-slate-800 dark:text-slate-300",
                 'sm:(relative ml-0 text-base text-current dark:text-current)',
-              )}
+              ]}
             >
               {configs.subtitle}
             </small>

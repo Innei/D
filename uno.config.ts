@@ -2,6 +2,7 @@
 
 import { theme } from './theme'
 
+import { animatedUno } from 'animated-unocss'
 import {
   defineConfig,
   presetAttributify,
@@ -27,6 +28,7 @@ export default defineConfig({
   theme,
   presets: [
     presetUno(),
+    animatedUno(),
     presetAttributify(),
     presetIcons({}),
     presetTypography(),
