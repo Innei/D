@@ -39,7 +39,7 @@ export default defineConfig({
     port: 2323,
   },
 
-  base: '',
+  // base: '',
   esbuild: {
     jsxFactory: '__h',
     jsxFragment: '__Fragment',
