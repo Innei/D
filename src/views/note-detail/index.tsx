@@ -1,7 +1,7 @@
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { BaseLayout } from '@/layouts'
+import { useTitle } from '@/composable/use-title'
 import { ArticleRender } from '@/modules/render/article'
 import { useNoteDetail } from '@/store'
 
@@ -14,23 +14,18 @@ export const NoteContentView = defineComponent({
 
     const nid = parseInt(route.params.id as any)
 
-    onUnmounted(() => {
-      document.title = `${configs.title} | ${configs.subtitle}`
-    })
-
     const noteDetail = useNoteDetail(nid)
 
     const { dataRef, notePromise } = noteDetail
-    onMounted(async () => {
-      notePromise.then((note) => {
-        document.title = `${note.title} | ${configs.title}`
-      })
-    })
 
+    const titler = useTitle()
+    notePromise.then((page) => {
+      titler(page.title)
+    })
     return () => {
       const data = dataRef.value
       return (
-        <BaseLayout>
+        <>
           {data ? (
             <ArticleRender
               {...data}
@@ -39,7 +34,7 @@ export const NoteContentView = defineComponent({
           ) : (
             <div>loading...</div>
           )}
-        </BaseLayout>
+        </>
       )
     }
   },

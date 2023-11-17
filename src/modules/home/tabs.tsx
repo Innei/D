@@ -1,6 +1,7 @@
 import { defineComponent, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import { AboutPage } from '@/views/pages/about'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
 
 import { NoteList } from '../notes/list'
@@ -68,7 +69,9 @@ export const HomeTabs = defineComponent({
             <TabPanel>
               <PostList />
             </TabPanel>
-            <TabPanel>Content 3</TabPanel>
+            <TabPanel>
+              <AboutPage />
+            </TabPanel>
           </TabPanels>
         </TabGroup>
       )

@@ -1,7 +1,7 @@
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { BaseLayout } from '@/layouts'
+import { useTitle } from '@/composable/use-title'
 import { ArticleRender } from '@/modules/render/article'
 import { usePostDetail } from '@/store/post'
 
@@ -15,23 +15,18 @@ export const PostContentView = defineComponent({
     const category = route.params.category as any
     const slug = route.params.slug as any
 
-    onUnmounted(() => {
-      document.title = `${configs.title} | ${configs.subtitle}`
-    })
-
     const postDetail = usePostDetail(category, slug)
 
-    const { dataRef, notePromise } = postDetail
-    onMounted(async () => {
-      notePromise.then((post) => {
-        document.title = `${post.title} | ${configs.title}`
-      })
+    const { dataRef, postPromise } = postDetail
+    const titler = useTitle()
+    postPromise.then((p) => {
+      titler(p.title)
     })
 
     return () => {
       const data = dataRef.value
       return (
-        <BaseLayout>
+        <>
           {data ? (
             <ArticleRender
               {...data}
@@ -40,7 +35,7 @@ export const PostContentView = defineComponent({
           ) : (
             <div>loading...</div>
           )}
-        </BaseLayout>
+        </>
       )
     }
   },

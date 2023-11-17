@@ -43,7 +43,6 @@ export const usePostStore = defineStore('post', {
 
       const category = categoryStore.slugMap.get(categorySlug)
 
-      console.log(categorySlug, slug, categoryStore.slugMap, postStore.slugMap)
       if (!category) {
         return null
       }
@@ -152,7 +151,7 @@ export const usePostDetail = (categorySlug: string, slug: string) => {
 
   let promiseResolve: (value: PostModel) => void
 
-  const notePromise = new Promise<PostModel>((resolve) => {
+  const postPromise = new Promise<PostModel>((resolve) => {
     promiseResolve = resolve
   })
 
@@ -205,7 +204,7 @@ export const usePostDetail = (categorySlug: string, slug: string) => {
   return {
     loadingRef,
     dataRef,
-    notePromise,
+    postPromise,
   }
 }
 
