@@ -29,14 +29,16 @@ export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
 
       if (done) {
         onDone?.()
-        break
+
+        if (!value) break
       }
 
       const str = decoder.decode(value, { stream: true })
 
-      received += `${str}\n`
+      received += str
 
       const lines = received.split('\n')
+
       received = lines.pop() || '' // 保存最后一个不完整的片段
 
       lines.forEach((line) => {
