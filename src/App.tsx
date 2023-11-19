@@ -10,7 +10,7 @@ import { useSyncStore } from './store'
 const styles = {
   status: [
     'fixed bottom-2 left-2 text-xs flex items-center gap-2',
-    'animated-slide-in-up animate-both p-1 rounded-xl',
+    'animated-slide-in-up animate-both p-1 rounded-xl bg-white/80 backdrop-blur-md pointer-events-none',
   ],
 }
 export const App = defineComponent({
@@ -51,6 +51,7 @@ export const App = defineComponent({
             <span>You are offline</span>
           </div>
         )}
+
         {syncStore.isSyncing && (
           <div
             class={[
