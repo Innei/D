@@ -19,7 +19,7 @@ export const Header = defineComponent({
             <small
               class={[
                 "absolute left-0 -bottom-5 m-0 whitespace-nowrap text-right font-['Heiti_SC'] text-sm text-slate-800 dark:text-slate-300",
-                'sm:(relative ml-0 text-base text-current dark:text-current)',
+                // 'sm:(ml-0 text-base text-current dark:text-current)',
               ]}
             >
               {configs.subtitle}
