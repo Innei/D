@@ -27,6 +27,7 @@ export default defineConfig({
             src: '192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable',
           },
           {
             src: '256.png',
