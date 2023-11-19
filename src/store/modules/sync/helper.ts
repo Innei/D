@@ -14,7 +14,12 @@ export async function downloadDataAsStream<ResponseType = SyncCollectionData>({
   onDone?: () => void
   onFail?: (error: Error) => void
 }): Promise<void> {
-  const response = await fetch(`${apiClient.endpoint}${endpoint}`)
+  const response = await fetch(`${apiClient.endpoint}${endpoint}`).catch(
+    (error) => {
+      onFail?.(error)
+      throw error
+    },
+  )
 
   if (!response.body) return
 

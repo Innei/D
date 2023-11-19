@@ -36,6 +36,7 @@ export const useSyncStore = defineStore('sync', {
   actions: {
     async sync() {
       if (this.isSyncing) return
+      if (!navigator.onLine) return
 
       const hasDb = await Dexie.exists(SYNC_DB_NAME)
       if (lastSyncTime.value && hasDb) {
@@ -61,6 +62,7 @@ export const useSyncStore = defineStore('sync', {
     },
     async syncData() {
       if (this.isSyncing) return
+
       this.isSyncing = true
       const currentSyncTime = Date.now()
       await downloadDataAsStream<
